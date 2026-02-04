@@ -1,0 +1,93 @@
+:root {
+  --primary: 
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f4f4f4;
+}
+
+header {
+  position: absolute;
+  display: flex;
+  width: 90vw;
+  height: 10vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  top: 0;
+  left: 5vw;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+.menu-bar {
+  display: flex;
+  height: 100%;
+  width: 5rem;
+  background-color: #eee;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menu-bar div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  cursor: pointer;
+  align-items: center;
+  height: 100%;
+}
+
+.menu-bar div:hover {
+  background-color: #ddd;
+}
+
+.menu-bar i {
+  font-size: 1.5rem;
+}
+
+
+.right-container {
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 16rem;
+  height: 10%;
+  border: 1px solid #000000;
+}
+
+.time-display {
+  font: 3em sans-serif;
+}
+
+.date-display {
+  font: 2rem sans-serif;
+}
+
+.bottom-right {
+
+}

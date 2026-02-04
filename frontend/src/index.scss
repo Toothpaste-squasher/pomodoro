@@ -1,0 +1,126 @@
+// --- Variables ---
+$bg-color: #030712;
+$text-color: #f8fafc;
+$accent-color: #a855f7;
+$hover-color: #818cf8;
+$glass-bg: rgba(255, 255, 255, 0.03);
+$glass-border: rgba(255, 255, 255, 0.08);
+
+// --- Global Presets ---
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: 'Rubik', sans-serif;
+  user-select: none;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  background: $bg-color;
+}
+
+// Menu Bar
+.menu-bar {
+  flex: 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  background: rgba(255, 255, 255, 0.01);
+  border-right: 1px solid $glass-border;
+  backdrop-filter: blur(20px);
+  z-index: 100;
+
+  .menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    border-radius: 16px;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+
+    &:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      transform: scale(1.1);
+    }
+
+    &.active {
+      color: #fff;
+      background: linear-gradient(135deg, rgba($accent-color, 0.3), rgba($hover-color, 0.3));
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+        0 0 15px rgba($accent-color, 0.2);
+      border: 1px solid rgba($accent-color, 0.2);
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -16px;
+        width: 4px;
+        height: 20px;
+        background: $accent-color;
+        border-radius: 0 4px 4px 0;
+        box-shadow: 0 0 15px $accent-color;
+      }
+    }
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+}
+
+// Main Content
+.main-content {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+// Global Checkboxes Custom
+input[type="checkbox"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.03);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  &:checked {
+    background: $accent-color;
+    border-color: $accent-color;
+    box-shadow: 0 0 15px rgba($accent-color, 0.4);
+
+    &::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
