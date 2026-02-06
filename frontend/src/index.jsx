@@ -4,7 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 
 // Root components
 import App from "./App";
-import { AppProvider } from "./contexts/AppProvider";
+
+// Contexts
+import { AuthProvider } from "./contexts/auth/contextProvider";
+import { AppProvider } from "./contexts/AppProvider.jsx";
 
 // Global style
 import './index.scss'
@@ -16,9 +19,11 @@ const root = createRoot(container);
 root.render(
   <StrictMode>
     <BrowserRouter>
-      <AppProvider>
-        <App />
-      </AppProvider>
+      <AuthProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>
 );

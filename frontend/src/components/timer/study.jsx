@@ -16,7 +16,7 @@ const Timer = () => {
   // --- State ---
   const [isEditing, setIsEditing] = useState(false);
 
-  // --- useTimer ---
+  // --- timerContext ---
   const { isRunning, remainingTime, countdownDuration, setCountdownDuration, setIsRunning, setRemainingTime, note, setNote, finishSession } = useContext(TimerContext);
 
   // --- Effects ---
