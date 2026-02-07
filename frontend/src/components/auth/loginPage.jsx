@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { login } from "../../services/usersService"
 
 
 export const LoginPage = () => {
@@ -13,6 +14,7 @@ export const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(creds)
+    login(creds);
   }
 
   return (
