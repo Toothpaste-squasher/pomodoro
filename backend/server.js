@@ -1,9 +1,8 @@
-import 'dotenv/config';
+
 import express from 'express';
 import cors from 'cors';
 
 // ---Import Routes---
-import userRoutes from './routes/userRoutes.js';
 import tasksRoutes from './routes/tasksRoutes.js';
 import studySeshRoutes from './routes/studySeshRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
@@ -19,7 +18,6 @@ app.use(cors({
 }));
 
 // ---Use Routes---
-app.use('/api/users', userRoutes);
 app.use('/api/tasks', tasksRoutes);
 app.use('/api/sessions', studySeshRoutes);
 app.use('/api/settings', settingsRoutes)
