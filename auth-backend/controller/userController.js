@@ -1,6 +1,10 @@
 import { users } from '../data/users.js';
 import jwt from 'jsonwebtoken';
 
+import { loginSignTokens, signAToken, signRToken } from './helpers/signToken.js';
+
+import { users } from '../data/users.js';
+
 
 export const register = (req, res) => {
   const { username, email, password } = req.body
@@ -17,15 +21,14 @@ export const register = (req, res) => {
 }
 
 export const login = (req, res) => {
-  const { username, password } = req.body
-  const user = users.find(user => user.username === username && user.password === password)
+  const user = users.find(user => user.username === req.body.username && user.password === req.body.password)
   if (!user) {
     return res.status(401).json({ message: 'Invalid credentials' })
   }
 
-  const info = { name: username }
-  const accessToken = jwt.sign(info, process.env.ACCESS_TOKEN)
-  res.json({ accessToken })
+  const { password, ...payload } = user      // filter out password to not be included in the tokens
+  loginSignTokens(payload, res)
+
 }
 
 

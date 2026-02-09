@@ -6,7 +6,8 @@
   "scripts": {
     "client": "npm run dev --prefix frontend",
     "server": "nodemon backend/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "auth-server": "nodemon auth-backend/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run auth-server\""
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,8 @@
     "concurrently": "^9.2.1"
   },
   "dependencies": {
-    "dotenv": "^17.2.4"
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.4",
+    "ms": "^2.1.3"
   }
 }
