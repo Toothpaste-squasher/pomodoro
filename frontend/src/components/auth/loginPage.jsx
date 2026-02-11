@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { login } from "../../services/usersService"
+import useUsersService from "../../hooks/services/usersService"
 
 
 export const LoginPage = () => {
   const [creds, setCreds] = useState({ username: '', password: '' })
-
+  const { login } = useUsersService()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -14,7 +14,7 @@ export const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(creds)
-    login(creds);
+    login(creds)
   }
 
   return (

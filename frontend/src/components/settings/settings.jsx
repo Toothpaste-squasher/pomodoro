@@ -1,11 +1,12 @@
 import { React, useState, useContext } from "react"
 import { settingsContext } from "../../contexts/settings/settingsContext";
 
-import { updateSetting } from "../../services/settingsService"
+import useSettingsService from "../../hooks/services/settingsService";
 
 
 export const Settings = () => {
   const { theme, setTheme, defaultDur, setDefaultDur } = useContext(settingsContext);
+  const { updateSetting } = useSettingsService();
 
   return (
     <div className="settings-page">

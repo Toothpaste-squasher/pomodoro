@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect, useContext, useCallback } from "react";
 import { TimerContext } from "./timerContext";
 import { settingsContext } from "../settings/settingsContext";
-import { saveSession } from "../../services/sessionService";
+import useSessionService from "../../hooks/services/sessionService";
 
 export const TimerProvider = ({ children }) => {
   const { defaultDur } = useContext(settingsContext);
+  const { saveSession } = useSessionService();
 
   // --- States ---
   const [isRunning, setIsRunning] = useState(false);

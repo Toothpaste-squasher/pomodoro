@@ -13,6 +13,6 @@ export const refreshToken = (req, res) => {
       return res.status(403).json({ message: 'Invalid refresh token', err: err.message })
     }
     const newAToken = signAToken(payload)
-    res.json({ newAToken })
+    res.json({ token: newAToken })
   })
 }

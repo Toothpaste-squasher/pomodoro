@@ -1,12 +1,11 @@
 import { Trash2 } from 'lucide-react';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useTasksService } from '../../hooks/services/tasksService';
 
-const API = axios.create({ baseURL: "http://localhost:5001/api" });
 
 const TasksList = () => {
   const [tasks, setTasks] = useState([]);
-
+  const { getTasks, deleteTask } = useTasksService();
 
   useEffect(() => {
     getTasks();

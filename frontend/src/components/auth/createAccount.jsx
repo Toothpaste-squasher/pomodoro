@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { register } from "../../services/usersService"
+import useUsersService from "../../hooks/services/usersService";
 
 export const CreateAccount = () => {
   const [regCreds, setRegCreds] = useState({})
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { register } = useUsersService;
 
   const handleChange = (e) => {
     setRegCreds(prev => ({ ...prev, [e.target.name]: e.target.value }))
