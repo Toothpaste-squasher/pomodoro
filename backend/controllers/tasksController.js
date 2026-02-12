@@ -28,7 +28,7 @@ export const deleteTask = (req, res) => {
   const index = tasks.findIndex(task => task.id === id);
   if (index !== -1) {
     tasks.splice(index, 1);
-    res.status(200).json({ success: true, message: "Success" });
+    res.status(200).json({ success: true, message: "Success", tasks: tasks });
   } else {
     res.status(200).json({ success: false, message: `Cannot match/find the task: ${id}` })
   }

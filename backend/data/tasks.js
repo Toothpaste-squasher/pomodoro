@@ -2,7 +2,7 @@ const tasks = [
   {
     id: 1,
     description: 'Learn React',
-    dateCreated: 1704067200000, // Older
+    dateCreated: '2024-01-01', // Older
     dueDate: "",
     completed: false,
     tagId: 1,
@@ -11,8 +11,8 @@ const tasks = [
   {
     id: 2,
     description: 'Refactor MenuBar component',
-    dateCreated: 1704153600000,
-    dueDate: 1704758400000,
+    dateCreated: '2024-01-02',
+    dueDate: '2024-01-09',
     completed: false,
     tagId: 1, // Dev
     urgentId: 3, // High
@@ -20,8 +20,8 @@ const tasks = [
   {
     id: 3,
     description: 'Buy groceries for the week',
-    dateCreated: 1704240000000,
-    dueDate: 1704326400000,
+    dateCreated: '2024-01-03',
+    dueDate: '2024-01-04',
     completed: true,
     tagId: 2, // Personal
     urgentId: 2, // Medium
@@ -29,7 +29,7 @@ const tasks = [
   {
     id: 4,
     description: 'Read 30 pages of Clean Code',
-    dateCreated: 1704326400000,
+    dateCreated: '2024-01-04',
     dueDate: "",
     completed: false,
     tagId: 3, // Study
@@ -38,8 +38,8 @@ const tasks = [
   {
     id: 5,
     description: 'Fix CSS bug in Safari',
-    dateCreated: 1704412800000,
-    dueDate: 1704499200000,
+    dateCreated: '2024-01-05',
+    dueDate: '2024-01-06',
     completed: false,
     tagId: 1,
     urgentId: 3,
@@ -47,7 +47,7 @@ const tasks = [
   {
     id: 6,
     description: 'Schedule dentist appointment',
-    dateCreated: 1704499200000,
+    dateCreated: '2024-01-06',
     dueDate: "",
     completed: false,
     tagId: 4, // Health
@@ -56,8 +56,8 @@ const tasks = [
   {
     id: 7,
     description: 'Write unit tests for Timer logic',
-    dateCreated: 1704585600000,
-    dueDate: 1704844800000,
+    dateCreated: '2024-01-07',
+    dueDate: '2024-01-10',
     completed: false,
     tagId: 1,
     urgentId: 2,
@@ -65,8 +65,8 @@ const tasks = [
   {
     id: 8,
     description: 'Renew domain name',
-    dateCreated: 1704672000000,
-    dueDate: 1705017600000,
+    dateCreated: '2024-01-08',
+    dueDate: '2024-01-12',
     completed: false,
     tagId: 5, // Admin
     urgentId: 3,
@@ -74,7 +74,7 @@ const tasks = [
   {
     id: 9,
     description: 'Clean the desk',
-    dateCreated: 1704758400000,
+    dateCreated: '2024-01-09',
     dueDate: "",
     completed: true,
     tagId: 2,
@@ -83,7 +83,7 @@ const tasks = [
   {
     id: 10,
     description: 'Update project documentation',
-    dateCreated: 1704844800000,
+    dateCreated: '2024-01-10',
     dueDate: "",
     completed: false,
     tagId: 1,
@@ -92,8 +92,8 @@ const tasks = [
   {
     id: 11,
     description: 'Plan weekend trip',
-    dateCreated: 1704931200000,
-    dueDate: 1705276800000,
+    dateCreated: '2024-01-11',
+    dueDate: '2024-01-15',
     completed: false,
     tagId: 2,
     urgentId: 2,
@@ -101,7 +101,7 @@ const tasks = [
   {
     id: 12,
     description: 'Learn SCSS mixins',
-    dateCreated: 1705017600000,
+    dateCreated: '2024-01-12',
     dueDate: "",
     completed: false,
     tagId: 3,
@@ -110,8 +110,8 @@ const tasks = [
   {
     id: 13,
     description: 'Setup database schema',
-    dateCreated: 1705104000000,
-    dueDate: 1705190400000,
+    dateCreated: '2024-01-13',
+    dueDate: '2024-01-14',
     completed: true,
     tagId: 1,
     urgentId: 3,
@@ -119,8 +119,8 @@ const tasks = [
   {
     id: 14,
     description: 'Reply to client emails',
-    dateCreated: 1705190400000,
-    dueDate: 1705190400000, // Due same day
+    dateCreated: '2024-01-14',
+    dueDate: '2024-01-14', // Due same day
     completed: false,
     tagId: 5,
     urgentId: 3,
@@ -128,8 +128,8 @@ const tasks = [
   {
     id: 15,
     description: 'Pay electricity bill',
-    dateCreated: 1705276800000,
-    dueDate: 1705536000000,
+    dateCreated: '2024-01-15',
+    dueDate: '2024-01-18',
     completed: false,
     tagId: 5,
     urgentId: 3,
@@ -137,7 +137,7 @@ const tasks = [
   {
     id: 16,
     description: 'Optimize images for web',
-    dateCreated: 1705363200000,
+    dateCreated: '2024-01-16',
     dueDate: "",
     completed: false,
     tagId: 1,
@@ -146,7 +146,7 @@ const tasks = [
   {
     id: 17,
     description: 'Research Redux Toolkit',
-    dateCreated: 1705449600000,
+    dateCreated: '2024-01-17',
     dueDate: "",
     completed: false,
     tagId: 3,
@@ -155,8 +155,8 @@ const tasks = [
   {
     id: 18,
     description: 'Go for a 5km run',
-    dateCreated: 1705536000000,
-    dueDate: 1705622400000,
+    dateCreated: '2024-01-18',
+    dueDate: '2024-01-19',
     completed: true,
     tagId: 4,
     urgentId: 2,
@@ -164,8 +164,8 @@ const tasks = [
   {
     id: 19,
     description: 'Meal prep for the week',
-    dateCreated: 1705622400000,
-    dueDate: 1705708800000,
+    dateCreated: '2024-01-19',
+    dueDate: '2024-01-20',
     completed: false,
     tagId: 2,
     urgentId: 2,
@@ -173,7 +173,7 @@ const tasks = [
   {
     id: 20,
     description: 'Watch advanced React tutorial',
-    dateCreated: 1705708800000,
+    dateCreated: '2024-01-20',
     dueDate: "",
     completed: false,
     tagId: 3,
@@ -182,8 +182,8 @@ const tasks = [
   {
     id: 21,
     description: 'Debug production logs',
-    dateCreated: 1705795200000,
-    dueDate: 1705795200000,
+    dateCreated: '2024-01-21',
+    dueDate: '2024-01-21',
     completed: false,
     tagId: 1,
     urgentId: 3,

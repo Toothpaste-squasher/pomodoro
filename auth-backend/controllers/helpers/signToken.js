@@ -14,19 +14,11 @@ export const signRToken = (payload) => {
   return jwt.sign(payload, process.env.REFRESH_TOKEN_S, { expiresIn: rTokenExpiry })
 }
 
-export const loginSignTokens = (fullPayload, res) => {
+export const loginSignTokens = (fullPayload) => {
   const _id = fullPayload.id;
 
   const accessToken = signAToken(fullPayload);
   const refreshToken = signRToken({ id: _id });
 
-  // Send access token
-  res.json({ accessToken });
-  // send and store refresh token
-  res.cookie('jwrt', refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'strict',
-    maxAge: ms()
-  })
+  return { accessToken, refreshToken }
 }

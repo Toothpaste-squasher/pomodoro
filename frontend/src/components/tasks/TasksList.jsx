@@ -5,39 +5,30 @@ import { useTasksService } from '../../hooks/services/tasksService';
 
 const TasksList = () => {
   const [tasks, setTasks] = useState([]);
-  const { getTasks, deleteTask } = useTasksService();
+  const { getTasks, deleteTask, updateTask, createTask } = useTasksService();
 
   useEffect(() => {
-    getTasks();
+    grabTasks();
   }, [])
 
-  function getTasks() {
-    API.get("/tasks")
+  function grabTasks() {
+    getTasks()
       .then((res) => {
         setTasks(res.data)
-      })
-      .catch((err) => {
-        console.error(err)
       })
   }
 
   const handleDelete = (taskId) => {
-    API.delete(`/tasks/${taskId}`)
+    deleteTask(taskId)
       .then((res) => {
-        getTasks();
-      })
-      .catch((err) => {
-        console.error(err)
+        setTasks(res.data.tasks)
       })
   }
 
   const handleChange = ((taskId, info, value) => {
-    // Update local state
+    // Update local task state
     const updatedTasksList = tasks.map((task) => {
       if (task.id === taskId) {
-        if (info === "dueDate") {
-          value = convertDate(value);
-        }
         return {
           ...task,
           [info]: value
@@ -47,18 +38,8 @@ const TasksList = () => {
     })
     setTasks(updatedTasksList);
     // Update server
-    API.put(`/tasks/${taskId}/${info}`, { value: info === "dueDate" ? convertDate(value) : value })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    updateTask(taskId, info, value)
   })
-
-  const convertDate = (date) => {
-    return new Date(date).toISOString().split("T")[0];
-  }
 
   return (
     <div className='task-list'>
@@ -86,7 +67,7 @@ const TasksList = () => {
                 </select>
                 <input
                   type="date"
-                  value={task.dueDate ? convertDate(task.dueDate) : ""}
+                  value={task.dueDate}
                   onChange={(e) => handleChange(task.id, "dueDate", e.target.value)}
                 />
               </div>

@@ -24,9 +24,19 @@ export const login = (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' })
   }
 
-  const { password, ...payload } = user      // filter out password to not be included in the tokens
-  loginSignTokens(payload, res)
+  // filter out password to not be included in the tokens
+  const { password, ...payload } = user
 
+  const { accessToken, refreshToken } = loginSignTokens(payload, res)
+  // Set refresh token to cookies
+  res.cookie('jwrt', refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: ms(rTokenExpiry)
+  })
+  // Send access token
+  res.json({ accessToken, refreshToken });
 }
 
 

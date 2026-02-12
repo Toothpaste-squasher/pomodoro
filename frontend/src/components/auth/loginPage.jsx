@@ -13,8 +13,8 @@ export const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(creds)
     login(creds)
+      .then(res => console.log(res.data))
   }
 
   return (
