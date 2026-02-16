@@ -12,10 +12,9 @@ const TasksList = () => {
   }, [])
 
   function grabTasks() {
-    getTasks()
-      .then((res) => {
-        setTasks(res.data)
-      })
+    getTasks().then((res) => {
+      setTasks(res.data)
+    })
   }
 
   const handleDelete = (taskId) => {

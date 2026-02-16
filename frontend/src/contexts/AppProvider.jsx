@@ -1,5 +1,5 @@
-import { SettingsProvider } from "./settings/contextProvider"
-import { TimerProvider } from "./timer/ContextProvider"
+import { SettingsProvider } from "./settings/settingsProvider"
+import { TimerProvider } from "./timer/timerProvider"
 
 
 export const AppProvider = ({ children }) => {

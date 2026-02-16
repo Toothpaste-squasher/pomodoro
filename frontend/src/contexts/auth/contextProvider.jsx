@@ -1,32 +1,35 @@
-import { useState } from "react"
+import { useState, useLayoutEffect, useEffect } from "react"
+import { Loader } from 'lucide-react'
 import { authContext } from "./authContext"
-import { useEffect } from "react";
 import axios from "axios";
 
 
-export const AuthProvider = ({ children }) => {
-  // --- APIs ---
-  const mainAPI = axios.create({
-    baseURL: 'http://localhost:5001',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    withCredentials: true
-  })
+// --- APIs ---
+const mainAPI = axios.create({
+  baseURL: 'http://localhost:5001/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
+})
 
-  const authAPI = axios.create({
-    baseURL: 'http://localhost:5002',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    withCredentials: true
-  })
+const authAPI = axios.create({
+  baseURL: 'http://localhost:5002/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
+})
+
+// --- Context provider ---
+export const AuthProvider = ({ children }) => {
 
   // --- States ---
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    authAPI.get('/api/token/refresh').then(
+  useLayoutEffect(() => {
+    authAPI.get('/token/refresh').then(
       (res) => {
         setToken(res.data.token)
       }
@@ -36,17 +39,26 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
 
-  mainAPI.interceptors.request.use(
-    (req) => {
-      if (!token) {
-        return
+  useEffect(() => {
+    const interceptor = mainAPI.interceptors.request.use(
+      (req) => {
+        if (token) {
+          req.headers.Authorization = `Bearer ${token}`
+        }
+        return req
       }
+    )
 
-
-      req.headers.Authorization = `Bearer ${token}`
-      return req
+    return () => {
+      mainAPI.interceptors.request.eject(interceptor)
     }
-  )
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      setIsLoading(false)
+    }
+  }, [token])
 
   return (
     <authContext.Provider
@@ -56,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         authAPI
       }}
     >
-      {children}
+      {isLoading ? <Loader /> : children}
     </authContext.Provider>
   )
 }

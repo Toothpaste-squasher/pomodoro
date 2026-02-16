@@ -23,5 +23,5 @@ app.use('/api/token', tokenRoutes)
 
 // ---Server---
 app.listen(5002, () => {
-  console.log("Listening on port 5002")
+  console.log("Auth-backend listening on port 5002")
 })

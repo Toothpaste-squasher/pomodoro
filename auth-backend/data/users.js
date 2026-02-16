@@ -3,7 +3,7 @@ export const users = [
     id: 1,
     username: "pixel_pioneer",
     email: "pixel.pioneer@example.com",
-    password: "hashed_password_1",
+    password: "1",
     createdAt: "2023-01-15T08:30:00Z",
     role: "admin",
     isActive: true,

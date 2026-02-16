@@ -20,5 +20,5 @@ export const loginSignTokens = (fullPayload) => {
   const accessToken = signAToken(fullPayload);
   const refreshToken = signRToken({ id: _id });
 
-  return { accessToken, refreshToken }
+  return { accessToken, refreshToken, rTokenExpiry }
 }

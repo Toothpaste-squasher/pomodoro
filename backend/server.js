@@ -1,4 +1,4 @@
-
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 
@@ -15,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: "http://localhost:5173",
+  credentials: true,
 }));
 
 // ---Use Routes---
@@ -24,5 +25,5 @@ app.use('/api/settings', settingsRoutes)
 
 // ---Server---
 app.listen(5001, () => {
-  console.log("Listening on port 5001")
+  console.log("Backend listening on port 5001")
 })

@@ -1,5 +1,6 @@
-import { users } from '../data/users.js';
+import ms from 'ms';
 
+import { users } from '../data/users.js';
 import { loginSignTokens } from './helpers/signToken.js';
 
 
@@ -27,7 +28,7 @@ export const login = (req, res) => {
   // filter out password to not be included in the tokens
   const { password, ...payload } = user
 
-  const { accessToken, refreshToken } = loginSignTokens(payload, res)
+  const { accessToken, refreshToken, rTokenExpiry } = loginSignTokens(payload, res)
   // Set refresh token to cookies
   res.cookie('jwrt', refreshToken, {
     httpOnly: true,
@@ -38,5 +39,3 @@ export const login = (req, res) => {
   // Send access token
   res.json({ accessToken, refreshToken });
 }
-
-

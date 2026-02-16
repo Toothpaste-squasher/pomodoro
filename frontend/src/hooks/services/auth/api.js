@@ -1,25 +1,9 @@
 import axios from "axios";
 
+// This file seems to be unused currently as the mainAPI is created in contextProvider.jsx
+// Usage of hooks (useAuthContext) at the top level is not allowed. 
+// If you intend to use this, it must be a custom hook or used inside a component.
 
-export const mainAPI = axios.create({
-  baseURL: 'http://localhost:5001/api',
-})
-
-export const authAPI = axios.create({
-  baseURL: 'http://localhost:5002/api',
-  withCredentials: true
-})
-
-mainAPI.interceptors.request.use((req) => {
-  if (token) req.headers.Authorization = `Bearer ${token}`
-
-  return req
-})
-
-mainAPI.interceptors.response.use((res) => {
-  if (res.status === 401) {
-    return console.log("no token attached")
-  } else if (res.status === 403) {
-    const newAToken = authAPI.get('api/token/refresh')
-  }
-})
+export const apiService = {
+  // potentially move logic here later
+};

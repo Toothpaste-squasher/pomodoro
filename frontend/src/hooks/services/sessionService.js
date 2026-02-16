@@ -6,7 +6,7 @@ const useSessionService = () => {
   const { mainAPI } = useContext(authContext)
 
   const saveSession = (sessionData) => {
-    return mainAPI.post('/session', sessionData)
+    return mainAPI.post('/sessions', sessionData)
       .then(res => console.log('Session saved:', res.data))
       .catch(err => console.error('Error saving session:', err));
   }
