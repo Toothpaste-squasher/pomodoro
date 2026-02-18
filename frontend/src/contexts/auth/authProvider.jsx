@@ -1,4 +1,5 @@
 import { useState, useLayoutEffect, useEffect } from "react"
+import { useNavigate } from 'react-router-dom'
 import { Loader } from 'lucide-react'
 import { authContext } from "./authContext"
 import axios from "axios";
@@ -23,10 +24,12 @@ const authAPI = axios.create({
 
 // --- Context provider ---
 export const AuthProvider = ({ children }) => {
-
   // --- States ---
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // --- Navigate ---
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     authAPI.get('/token/refresh').then(
@@ -35,11 +38,16 @@ export const AuthProvider = ({ children }) => {
       }
     ).catch((err) => {
       console.log(err) // Send user to /login page
+      navigate('/login')
+      setIsLoading(false)
     })
   }, [])
 
 
   useEffect(() => {
+    if (token) {
+      setIsLoading(false)
+    }
     const interceptor = mainAPI.interceptors.request.use(
       (req) => {
         if (token) {
@@ -51,12 +59,6 @@ export const AuthProvider = ({ children }) => {
 
     return () => {
       mainAPI.interceptors.request.eject(interceptor)
-    }
-  }, [token])
-
-  useEffect(() => {
-    if (token) {
-      setIsLoading(false)
     }
   }, [token])
 

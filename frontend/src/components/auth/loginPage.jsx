@@ -15,6 +15,7 @@ export const LoginPage = () => {
     e.preventDefault()
     login(creds)
       .then(res => console.log(res.data))
+      .catch(err => console.error(err))
   }
 
   return (

@@ -6,7 +6,7 @@ const useUsersService = () => {
   const { authAPI } = useContext(authContext)
 
   const login = (user) => {
-    return authAPI.post('/api/users/login', user)
+    return authAPI.post('/users/login', user)
       .catch(err => console.error(err))
   }
 
