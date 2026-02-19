@@ -10,19 +10,19 @@ export const register = (req, res) => {
   const findUser = users.find(user => user.username === username)
   const findEmail = users.find(user => user.email === email)
   if (findUser) {
-    return res.status(401).json({ message: 'Username already exists' })
+    return res.status(401).json({ success: false, message: 'Username already exists' })
   } else if (findEmail) {
-    return res.status(401).json({ message: 'Email already used' })
+    return res.status(401).json({ success: false, message: 'Email already used' })
   } else {
     users.push({ username, email, password })
-    res.json({ message: 'User created successfully' })
+    res.json({ success: true, message: 'User created successfully' })
   }
 }
 
 export const login = (req, res) => {
   const user = users.find(user => user.username === req.body.username && user.password === req.body.password)
   if (!user) {
-    return res.status(401).json({ message: 'Invalid credentials' })
+    return res.status(401).json({ success: false, message: 'Invalid credentials' })
   }
 
   // filter out password to not be included in the tokens
@@ -37,5 +37,5 @@ export const login = (req, res) => {
     maxAge: ms(rTokenExpiry)
   })
   // Send access token
-  res.json({ accessToken, refreshToken });
+  res.json({ success: true, accessToken });
 }

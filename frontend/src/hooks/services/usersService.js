@@ -6,13 +6,17 @@ const useUsersService = () => {
   const { authAPI } = useContext(authContext)
 
   const login = (user) => {
+    if (user.username === '' || user.password === '') {
+      return Promise.reject(new Error("Username or password is not provided in the request"))
+    }
     return authAPI.post('/users/login', user)
-      .catch(err => console.error(err))
   }
 
   const register = (user) => {
+    if (user.username === '' || user.password === '' || user.email === '') {
+      return Promise.reject(new Error("Username or password or email is not provided in the request"))
+    }
     return authAPI.post('/users/register', user)
-      .catch(err => console.error(err))
   }
 
   return {

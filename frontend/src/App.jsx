@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
 // --- Import Pages ---
-import { LoginPage } from "./components/auth/LoginPage.jsx"
+import { LoginPage } from "./components/auth/loginPage.jsx"
+import { SignUpPage } from "./components/auth/createAccount.jsx"
 import { MainLayout } from "./components/menu bar/MainLayout.jsx";
 import { Timer } from "./components/timer/study.jsx"
 import { Tasks } from "./components/tasks/tasks.jsx"
@@ -14,8 +15,10 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/" element={<MainLayout />} >
         <Route index element={<ComingSoon />} />
+        <Route path="home" element={<ComingSoon />} />
         <Route path="study" element={<Timer />} />
         <Route path="tasks" element={<Tasks />} />
         <Route path="calendar" element={<ComingSoon />} />

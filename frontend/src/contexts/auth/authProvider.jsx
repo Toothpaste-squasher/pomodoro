@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   // --- Navigate ---
   const navigate = useNavigate();
 
-  useLayoutEffect(() => {
+  function refreshToken() {
     authAPI.get('/token/refresh').then(
       (res) => {
         setToken(res.data.token)
@@ -41,6 +41,10 @@ export const AuthProvider = ({ children }) => {
       navigate('/login')
       setIsLoading(false)
     })
+  }
+
+  useLayoutEffect(() => {
+    refreshToken();
   }, [])
 
 
@@ -48,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       setIsLoading(false)
     }
-    const interceptor = mainAPI.interceptors.request.use(
+    const reqInterceptor = mainAPI.interceptors.request.use(
       (req) => {
         if (token) {
           req.headers.Authorization = `Bearer ${token}`
@@ -57,8 +61,19 @@ export const AuthProvider = ({ children }) => {
       }
     )
 
+    const resInterceptor = mainAPI.interceptors.response.use(
+      (res) => res,
+      (err) => {
+        if (err.response.status === 401) {
+          refreshToken()
+        }
+        return Promise.reject(err)
+      }
+    )
+
     return () => {
-      mainAPI.interceptors.request.eject(interceptor)
+      mainAPI.interceptors.request.eject(reqInterceptor)
+      mainAPI.interceptors.response.eject(resInterceptor)
     }
   }, [token])
 
