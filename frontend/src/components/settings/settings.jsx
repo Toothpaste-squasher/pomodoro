@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react"
-import { settingsContext } from "../../contexts/settings/settingsContext";
+import { settingsContext } from "../../contexts/App/settings/settingsContext";
 
 import useSettingsService from "../../hooks/services/settingsService";
 

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { settingsContext } from "./settingsContext";
 
-import useSettingsService from "../../hooks/services/settingsService";
+import useSettingsService from "../../../hooks/services/settingsService";
 
 export const SettingsProvider = ({ children }) => {
   const [theme, setTheme] = useState();
@@ -9,10 +9,14 @@ export const SettingsProvider = ({ children }) => {
   const { getSettings } = useSettingsService();
 
   useEffect(() => {
-    getSettings().then((res) => {
-      setTheme(res.data[0].theme);
-      setDefaultDur(Number(res.data[0].defaultDur));
-    })
+    getSettings()
+      .then((res) => {
+        setTheme(res.data[0].theme);
+        setDefaultDur(Number(res.data[0].defaultDur));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, [])
 
   return (

@@ -7,7 +7,6 @@ import App from "./App";
 
 // Contexts
 import { AuthProvider } from "./contexts/auth/authProvider";
-import { AppProvider } from "./contexts/AppProvider.jsx";
 
 // Global style
 import './index.scss'
@@ -20,9 +19,7 @@ root.render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <AppProvider>
-          <App />
-        </AppProvider>
+        <App />
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

@@ -27,31 +27,36 @@ export const AuthProvider = ({ children }) => {
   // --- States ---
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthorised, setIsAuthorised] = useState(false);
 
   // --- Navigate ---
   const navigate = useNavigate();
 
-  function refreshToken() {
-    authAPI.get('/token/refresh').then(
-      (res) => {
-        setToken(res.data.token)
-      }
-    ).catch((err) => {
-      console.log(err) // Send user to /login page
-      navigate('/login')
-      setIsLoading(false)
-    })
+  async function refreshToken() {
+    try {
+      const res = await authAPI.get('/token/refresh');
+      setToken(res.data.token);
+    } catch (err) {
+      console.log(err); // Send user to /login page
+      navigate('/login');
+      setIsLoading(false);
+      setIsAuthorised(false);
+    }
   }
 
   useLayoutEffect(() => {
     refreshToken();
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     if (token) {
       setIsLoading(false)
+      setIsAuthorised(true)
     }
+  }, [token]);
+
+
+  useEffect(() => {
     const reqInterceptor = mainAPI.interceptors.request.use(
       (req) => {
         if (token) {
@@ -63,11 +68,24 @@ export const AuthProvider = ({ children }) => {
 
     const resInterceptor = mainAPI.interceptors.response.use(
       (res) => res,
-      (err) => {
-        if (err.response.status === 401) {
-          refreshToken()
+      async (err) => {
+        const originalReq = err.config;
+        if (err.response.status === 401 && !originalReq._retry) {
+          try {
+            await refreshToken()
+            if (token) {
+              originalReq._retry = true
+              return mainAPI(originalReq)
+            } else {
+              setIsAuthorised(false);
+              navigate('/login');
+            }
+          } catch (err) {
+            return Promise.reject(err)
+          }
         }
-        return Promise.reject(err)
+
+        originalReq._retry = true
       }
     )
 
@@ -82,7 +100,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         setToken,
         mainAPI,
-        authAPI
+        authAPI,
+        isAuthorised
       }}
     >
       {isLoading ? <Loader /> : children}

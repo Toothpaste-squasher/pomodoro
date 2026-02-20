@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-import { getSettings } from '../../../../backend/controllers/settingsController'
+import { getSettings } from '../../../../../backend/controllers/settingsController'
 
 export const settingsContext = createContext(getSettings);

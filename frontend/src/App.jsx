@@ -8,6 +8,9 @@ import { Timer } from "./components/timer/study.jsx"
 import { Tasks } from "./components/tasks/tasks.jsx"
 import { Settings } from './components/settings/settings.jsx'
 
+// Contexts
+import { AppProvider } from "./contexts/App/AppProvider.jsx";
+
 
 const ComingSoon = () => { return <h1>Coming soon...</h1> }
 
@@ -16,7 +19,13 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
-      <Route path="/" element={<MainLayout />} >
+      <Route path="/"
+        element={
+          <AppProvider>
+            <MainLayout />
+          </AppProvider>
+        }
+      >
         <Route index element={<ComingSoon />} />
         <Route path="home" element={<ComingSoon />} />
         <Route path="study" element={<Timer />} />

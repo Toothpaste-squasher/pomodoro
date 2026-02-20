@@ -10,7 +10,7 @@ import { TimerCircle } from './timerCircle';
 import { TasksList } from '../tasks/TasksList';
 import { formatTimerTime } from '../../utils/timeUtils';
 import { Notes } from './notes';
-import { TimerContext } from '../../contexts/timer/timerContext.js';
+import { TimerContext } from '../../contexts/App/timer/timerContext.js';
 
 const Timer = () => {
   // --- State ---
