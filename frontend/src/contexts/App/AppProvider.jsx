@@ -4,6 +4,7 @@ import { authContext } from "../auth/authContext"
 
 import { SettingsProvider } from "./settings/settingsProvider"
 import { TimerProvider } from "./timer/timerProvider"
+import { taskProvider } from "./task/taskProvider.jsx"
 
 
 export const AppProvider = ({ children }) => {

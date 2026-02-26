@@ -13,8 +13,8 @@ export const useTasksService = () => {
     return mainAPI.delete(`/tasks/${taskId}`)
   }
 
-  const updateTask = (taskId, info, value) => {
-    return mainAPI.put(`/tasks/${taskId}/${info}`, { value: value })
+  const updateTask = (taskId, name, value) => {
+    return mainAPI.put(`/tasks/${taskId}/${name}`, { value: value })
   }
 
   const createTask = (newTask) => {
