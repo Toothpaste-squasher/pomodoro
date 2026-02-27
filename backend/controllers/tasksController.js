@@ -7,7 +7,7 @@ export const createTask = (req, res) => {
 }
 
 export const getTasks = (req, res) => {
-  res.json(tasks);
+  res.status(200).json({ success: true, tasks });
 }
 
 export const updateTask = (req, res) => {

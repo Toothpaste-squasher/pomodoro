@@ -1,47 +1,20 @@
 import { Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useTasksService } from '../../hooks/services/tasksService';
+import { useEffect, useContext } from 'react';
+import { taskContext, taskDispatchContext } from '../../contexts/App/task/taskContext';
+import { taskItem } from './taskItem';
 
 
 const TasksList = () => {
-  const [tasks, setTasks] = useState([]);
-  const { getTasks, deleteTask, updateTask, createTask } = useTasksService();
+  const { tasks } = useContext(taskContext);
+  const { handleRetrieveTasks, handleAddTask } = useContext(taskDispatchContext)
 
   useEffect(() => {
-    grabTasks();
+    handleRetrieveTasks();
   }, [])
 
-  function grabTasks() {
-    getTasks().then((res) => {
-      setTasks(res.data)
-    })
-  }
-
-  const handleDelete = (taskId) => {
-    deleteTask(taskId)
-      .then((res) => {
-        setTasks(res.data.tasks)
-      })
-  }
-
-  const handleChange = ((taskId, info, value) => {
-    // Update local task state
-    const updatedTasksList = tasks.map((task) => {
-      if (task.id === taskId) {
-        return {
-          ...task,
-          [info]: value
-        }
-      }
-      return task;
-    })
-    setTasks(updatedTasksList);
-    // Update server
-    updateTask(taskId, info, value)
-  })
-
   return (
-    <div className='task-list'>
+    <ul className='task-list'>
+      <button onClick={handleAddTask()}>+</button>
       {tasks.map((task) => {
         return (
           <div className={task.completed ? 'task completed' : 'task'} key={task.id}>
@@ -76,7 +49,7 @@ const TasksList = () => {
         )
       })}
 
-    </div>
+    </ul>
   )
 }
 

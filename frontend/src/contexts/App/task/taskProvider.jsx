@@ -1,17 +1,20 @@
-import { useReducer } from "react";
+import { useReducer, useMemo } from "react";
 
-import { taskContext } from "./taskContext";
-import { taskDispatchContext } from "./taskContext";
+import { taskContext, taskDispatchContext } from "./taskContext";
+import { useTasksService } from "../../../hooks/services/tasksService";
 
 
-
-const taskProvider = () => {
+export const TaskProvider = ({ children }) => {
   const [tasks, dispatchTasks] = useReducer(taskReducer, []);
   const { getTasks, deleteTask, updateTask, createTask } = useTasksService();
 
   function taskReducer(tasks, action) {
     const { type, content } = action
     switch (type) {
+      case "RETRIEVE_TASKS": {
+        return content.tasks;
+      }
+
       case "COMPLETE_TASK": {
         if (!content.id) {
           return console.log("taskId not provided")
@@ -43,7 +46,18 @@ const taskProvider = () => {
         const { id } = content;
         return tasks.filter(task => task.id !== id)
       }
+
+      default:
+        return tasks;
     }
+  }
+
+  const handleRetrieveTasks = () => {
+    getTasks()
+      .then((res) => {
+        const { tasks } = res.data
+        dispatchTasks({ type: "RETRIEVE_TASKS", content: { tasks } })
+      })
   }
 
   const handleAddTask = (newTask) => {
@@ -79,10 +93,36 @@ const taskProvider = () => {
       })
   }
 
-  const handleCompleteTask = (id) => {
-    updateTask(id, value)
+  const handleCompleteTask = (id, value) => {
+    updateTask(id, "completed", value)
       .then(() => {
-        dispatchTasks({ type: "COMPLETE_TASK", content: id })
+        dispatchTasks({ type: "COMPLETE_TASK", content: { id, value } })
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
+
+  // Memoize the state value to prevent unnecessary re-renders
+  const stateValue = useMemo(() => tasks, [tasks]);
+
+  // Memoize the dispatch actions to keep references stable
+  const dispatchValue = useMemo(
+    () => ({
+      handleRetrieveTasks,
+      handleAddTask,
+      handleAlterTask,
+      handleCompleteTask,
+      handleDeleteTask
+    }),
+    []
+  );
+
+  return (
+    <taskContext.Provider value={stateValue}>
+      <taskDispatchContext.Provider value={dispatchValue}>
+        {children}
+      </taskDispatchContext.Provider>
+    </taskContext.Provider>
+  )
 }
