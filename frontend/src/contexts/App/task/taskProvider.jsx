@@ -62,8 +62,8 @@ export const TaskProvider = ({ children }) => {
 
   const handleAddTask = (newTask) => {
     createTask(newTask)
-      .then(() => {
-        dispatchTasks({ type: "ADD_TASK", content: { newTask } })
+      .then((res) => {
+        dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data.newTask } })
       })
       .catch(err => console.log(err))
   }

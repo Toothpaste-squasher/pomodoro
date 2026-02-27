@@ -1,6 +1,15 @@
 import tasks from '../data/tasks.js';
 
 export const createTask = (req, res) => {
+  const taskFormat = {
+    id: 1,
+    description: 'Learn React',
+    dateCreated: '2024-01-01', // Older
+    dueDate: "",
+    completed: false,
+    tagId: 1,
+    urgentId: 1,
+  }
   const newTask = req.body;
   tasks.push(newTask);
   res.json(tasks);

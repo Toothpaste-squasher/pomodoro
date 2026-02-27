@@ -1,21 +1,25 @@
-import { Trash2 } from 'lucide-react';
-import { useEffect, useContext } from 'react';
+import { Trash2, Loader } from 'lucide-react';
+import { useEffect, useContext, useState } from 'react';
 import { taskContext, taskDispatchContext } from '../../contexts/App/task/taskContext';
 import { taskItem } from './taskItem';
 
 
 const TasksList = () => {
-  const { tasks } = useContext(taskContext);
+  // `taskContext` provides the array directly, so we don't destructure `{ tasks }`
+  const tasks = useContext(taskContext);
   const { handleRetrieveTasks, handleAddTask } = useContext(taskDispatchContext)
+  const [loadingTask, setLoadingTask] = useState(true)
 
   useEffect(() => {
-    handleRetrieveTasks();
+    handleRetrieveTasks()
+    setLoadingTask(false)
   }, [])
 
-  return (
+  return loadingTask ? <Loader /> : (
     <ul className='task-list'>
-      <button onClick={handleAddTask()}>+</button>
-      {tasks.map((task) => {
+      <button onClick={() => handleAddTask()}>+</button>
+      {console.log(tasks)}
+      {(tasks).map((task) => {
         return (
           <div className={task.completed ? 'task completed' : 'task'} key={task.id}>
             <input className='task-checkbox'
