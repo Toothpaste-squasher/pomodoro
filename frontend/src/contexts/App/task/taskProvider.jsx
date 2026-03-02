@@ -29,7 +29,7 @@ export const TaskProvider = ({ children }) => {
 
       case "ADD_TASK": {
         if (!content.newTask) return console.log("invalid content for new task creation")
-        return [...tasks, content.newTask];
+        return [content.newTask, ...tasks];
       }
 
       case "ALTER_TASK": {
@@ -61,9 +61,9 @@ export const TaskProvider = ({ children }) => {
   }
 
   const handleAddTask = (newTask) => {
-    createTask(newTask)
+    createTask({ newTask })
       .then((res) => {
-        dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data.newTask } })
+        dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data } })
       })
       .catch(err => console.log(err))
   }

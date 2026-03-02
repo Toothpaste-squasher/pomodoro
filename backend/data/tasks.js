@@ -1,6 +1,7 @@
 const tasks = [
   {
     id: 1,
+    userId: 1,
     description: 'Learn React',
     dateCreated: '2024-01-01', // Older
     dueDate: "",
@@ -10,6 +11,7 @@ const tasks = [
   },
   {
     id: 2,
+    userId: 1,
     description: 'Refactor MenuBar component',
     dateCreated: '2024-01-02',
     dueDate: '2024-01-09',
@@ -19,6 +21,7 @@ const tasks = [
   },
   {
     id: 3,
+    userId: 1,
     description: 'Buy groceries for the week',
     dateCreated: '2024-01-03',
     dueDate: '2024-01-04',
@@ -28,6 +31,7 @@ const tasks = [
   },
   {
     id: 4,
+    userId: 1,
     description: 'Read 30 pages of Clean Code',
     dateCreated: '2024-01-04',
     dueDate: "",
@@ -37,6 +41,7 @@ const tasks = [
   },
   {
     id: 5,
+    userId: 1,
     description: 'Fix CSS bug in Safari',
     dateCreated: '2024-01-05',
     dueDate: '2024-01-06',
@@ -46,6 +51,7 @@ const tasks = [
   },
   {
     id: 6,
+    userId: 1,
     description: 'Schedule dentist appointment',
     dateCreated: '2024-01-06',
     dueDate: "",
@@ -55,6 +61,7 @@ const tasks = [
   },
   {
     id: 7,
+    userId: 1,
     description: 'Write unit tests for Timer logic',
     dateCreated: '2024-01-07',
     dueDate: '2024-01-10',
@@ -64,6 +71,7 @@ const tasks = [
   },
   {
     id: 8,
+    userId: 1,
     description: 'Renew domain name',
     dateCreated: '2024-01-08',
     dueDate: '2024-01-12',
@@ -73,6 +81,7 @@ const tasks = [
   },
   {
     id: 9,
+    userId: 1,
     description: 'Clean the desk',
     dateCreated: '2024-01-09',
     dueDate: "",
@@ -82,6 +91,7 @@ const tasks = [
   },
   {
     id: 10,
+    userId: 1,
     description: 'Update project documentation',
     dateCreated: '2024-01-10',
     dueDate: "",
@@ -91,6 +101,7 @@ const tasks = [
   },
   {
     id: 11,
+    userId: 1,
     description: 'Plan weekend trip',
     dateCreated: '2024-01-11',
     dueDate: '2024-01-15',
@@ -100,6 +111,7 @@ const tasks = [
   },
   {
     id: 12,
+    userId: 1,
     description: 'Learn SCSS mixins',
     dateCreated: '2024-01-12',
     dueDate: "",
@@ -109,6 +121,7 @@ const tasks = [
   },
   {
     id: 13,
+    userId: 1,
     description: 'Setup database schema',
     dateCreated: '2024-01-13',
     dueDate: '2024-01-14',
@@ -118,6 +131,7 @@ const tasks = [
   },
   {
     id: 14,
+    userId: 1,
     description: 'Reply to client emails',
     dateCreated: '2024-01-14',
     dueDate: '2024-01-14', // Due same day
@@ -127,6 +141,7 @@ const tasks = [
   },
   {
     id: 15,
+    userId: 1,
     description: 'Pay electricity bill',
     dateCreated: '2024-01-15',
     dueDate: '2024-01-18',
@@ -136,6 +151,7 @@ const tasks = [
   },
   {
     id: 16,
+    userId: 1,
     description: 'Optimize images for web',
     dateCreated: '2024-01-16',
     dueDate: "",
@@ -145,6 +161,7 @@ const tasks = [
   },
   {
     id: 17,
+    userId: 1,
     description: 'Research Redux Toolkit',
     dateCreated: '2024-01-17',
     dueDate: "",
@@ -154,6 +171,7 @@ const tasks = [
   },
   {
     id: 18,
+    userId: 1,
     description: 'Go for a 5km run',
     dateCreated: '2024-01-18',
     dueDate: '2024-01-19',
@@ -163,6 +181,7 @@ const tasks = [
   },
   {
     id: 19,
+    userId: 1,
     description: 'Meal prep for the week',
     dateCreated: '2024-01-19',
     dueDate: '2024-01-20',
@@ -172,6 +191,7 @@ const tasks = [
   },
   {
     id: 20,
+    userId: 1,
     description: 'Watch advanced React tutorial',
     dateCreated: '2024-01-20',
     dueDate: "",
@@ -181,6 +201,7 @@ const tasks = [
   },
   {
     id: 21,
+    userId: 1,
     description: 'Debug production logs',
     dateCreated: '2024-01-21',
     dueDate: '2024-01-21',
