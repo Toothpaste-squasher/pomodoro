@@ -1,15 +1,15 @@
 import { useContext, useState } from "react"
 import { Trash2 } from "lucide-react"
-import { taskDispatchContext } from "../../contexts/App/task/taskContext"
+import { taskDispatchContext } from "../../contexts/app/task/taskContext"
 
 
 const TaskContent = ({ task, setIsEditing }) => {
   return (
     <div className='task-content'>
-      <label className='task-label' onClick={() => setIsEditing(true)}>{task.description}</label>
+      <label className='task-label' onClick={() => setIsEditing(true)}>{task.title}</label>
       <div className='task-info'>
-        <span>{task.urgentId == 1 ? "High" : task.urgentId == 2 ? "Medium" : "Low"}</span>
-        <span>{task.dueDate}</span>
+        <span>{task.urgentId == 1 ? "High" : task.urgentId == 3 ? "Low" : "Middle"}</span>
+        <span>{task.due_date}</span>
       </div>
     </div>
   )
@@ -20,8 +20,8 @@ export const EditingTaskContent = ({ task, handleSubmit, handleChange }) => {
     <form className='task-content' onSubmit={handleSubmit}>
       <input
         className='task-label-input'
-        name="description"
-        value={task.description}
+        name="title"
+        value={task.title}
         onChange={handleChange}
         autoFocus
       />
@@ -37,8 +37,8 @@ export const EditingTaskContent = ({ task, handleSubmit, handleChange }) => {
         </select>
         <input
           type="date"
-          name="dueDate"
-          value={task.dueDate}
+          name="due_date"
+          value={task.due_date || ""}
           onChange={handleChange}
         />
       </div>
@@ -50,22 +50,30 @@ export const TaskItem = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const { handleCompleteTask, handleDeleteTask, handleAlterTask } = useContext(taskDispatchContext)
+
+  const handleChange = (e) => {
+    handleAlterTask(task.id, e.target.name, e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsEditing(false);
+  }
+
   return (
-    <li className={task.completed ? 'task completed' : 'task'}>
+    <li className={task.status === 'completed' ? 'task completed' : 'task'}>
       <input className='task-checkbox'
         type="checkbox"
-        name="completion"
-        checked={task.completed}
-        onChange={(e) => handleCompleteTask(task.id, e.target.checked)}
+        name="status"
+        checked={task.status === 'completed'}
+        onChange={(e) => handleCompleteTask(task.id, e.target.checked ? 'completed' : 'pending')}
       />
 
       {isEditing ?
         <EditingTaskContent
           task={task}
-          handleSubmit={() => setIsEditing(false)}
-          handleChange={(e) => {
-            handleAlterTask(task.id, e.target.name, e.target.value)
-          }}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
         />
         :
         <TaskContent task={task} setIsEditing={setIsEditing} />

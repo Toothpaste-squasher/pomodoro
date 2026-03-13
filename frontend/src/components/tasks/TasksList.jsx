@@ -1,6 +1,6 @@
 import { Loader } from 'lucide-react';
 import { useEffect, useContext, useState } from 'react';
-import { taskContext, taskDispatchContext } from '../../contexts/App/task/taskContext';
+import { taskContext, taskDispatchContext } from '../../contexts/app/task/taskContext';
 import { TaskItem } from './taskItem';
 import { CreateTask } from './createTaskItem';
 

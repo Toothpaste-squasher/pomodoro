@@ -1,26 +1,50 @@
 import tasks from '../data/tasks.js';
-import { v4 as uuidv4 } from "uuid"
+import { pool } from '../db/db.js';
 
-export const createTask = (req, res) => {
-  const userId = req.user.id
-  const reqDetails = req.body.newTask
-  const newTask = {
-    userId,
-    id: uuidv4(),
-    dateCreated: Date.now(),
-    completed: false,
-    ...reqDetails
-  }
+export const getTasks = async (req, res) => {
+  const sql = `SELECT * FROM tasks WHERE user_id = ?`
+  const user_id = req.user.id;
+  const [rows] = await pool.query(sql, [user_id])
+  return res.status(200).json({ success: true, tasks: rows })
+}
+
+export const createTask = async (req, res) => {
+  const add_sql = `INSERT INTO tasks (user_id, title, due_date, status, task_group) VLAUES (?, ?, ?, ?, ?)`
+  const getNewTask_sql = 'SELECT FROM tasks WHERE id = ?'
+  const user_id = req.user.id
+  const [title, due_date, status, task_group, priority] = req.body.newTask
+
+  const [result] = await pool.query(add_sql, [user_id, title, due_date, status, task_group, priority])
+  const [newTask] = await pool.query(getNewTask_sql, [result.insertId])
+
+  return res.status(200).json({ success: true, newTask })
+  /*
   tasks.push(newTask);
   res.status(200).json(newTask);
+  */
 }
 
-export const getTasks = (req, res) => {
-  res.status(200).json({ success: true, tasks });
-}
-
-export const updateTask = (req, res) => {
+export const updateTask = async (req, res) => {
+  const sql = `UPDATE tasks SET ?? = ? WHERE user_id = ? AND id = ?;`
   const id = Number(req.params.id);
+  const user_id = req.user.id;
+  const info = req.params.info;
+  const value = req.body.value;
+
+  const allowedColumns = [
+    'title',
+    'status',
+    'task-group',
+    'due_date',
+    'priority',
+    'completed_at'
+  ]
+  if (!allowedColumns.includes(info)) {
+    return res.status(400).json({ success: false, message: "Invalid column name" })
+  }
+  const [rows] = await pool.query(sql, [info, value, user_id, id])
+  return res.status(200).json({ success: true, message: "Successfully updated task info" })
+  /*
   const index = tasks.findIndex(task => task.id === id);
   const updatedTaskInfo = req.params.info;
   const updatedTaskValue = req.body.value;
@@ -29,11 +53,19 @@ export const updateTask = (req, res) => {
     res.status(200).json({ success: true });
   } else {
     res.status(200).json({ success: false, message: `Cannot match/find the task: ${id}` })
-  }
+  }*/
 }
 
-export const deleteTask = (req, res) => {
+export const deleteTask = async (req, res) => {
+  const sql = 'DELETE FROM tasks WHERE id = ? AND user_id = ?'
   const id = Number(req.params.id);
+  const user_id = req.user.id;
+
+  await pool.query(sql, [id, user_id])
+
+  return res.status(200).json({ success: true, message: "Task deleted" })
+
+  /*
   const index = tasks.findIndex(task => task.id === id);
   if (index !== -1) {
     tasks.splice(index, 1);
@@ -41,6 +73,7 @@ export const deleteTask = (req, res) => {
   } else {
     res.status(200).json({ success: false, message: `Cannot match/find the task: ${id}` })
   }
+  */
 }
 
 

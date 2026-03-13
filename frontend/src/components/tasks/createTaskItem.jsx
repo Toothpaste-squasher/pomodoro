@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { EditingTaskContent } from "./taskItem";
-import { taskDispatchContext } from "../../contexts/App/task/taskContext";
+import { taskDispatchContext } from "../../contexts/app/task/taskContext";
 
 export const CreateTask = ({ setIsAdding }) => {
   const { handleAddTask } = useContext(taskDispatchContext)
   const [newTask, setNewTask] = useState({
-    description: '',
-    dueDate: "",
-    completed: false,
-    tagId: 1,
-    urgentId: 2,
+    title: '',
+    due_date: "",
+    status: "pending",
+    task_group: "",
+    priority: "middle",
   })
 
   const handleChange = (e) => {
@@ -19,9 +19,10 @@ export const CreateTask = ({ setIsAdding }) => {
     })
   }
 
-  const handleSubmit = () => {
-    handleAddTask(newTask)
-    setIsAdding(false)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await handleAddTask(newTask);
+    setIsAdding(false);
   }
 
   return (

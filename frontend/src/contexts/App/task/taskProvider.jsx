@@ -1,6 +1,6 @@
 import { useReducer, useMemo } from "react";
 
-import { taskContext, taskDispatchContext } from "./taskContext";
+import { taskContext, taskDispatchContext } from "./taskContext.js";
 import { useTasksService } from "../../../hooks/services/tasksService";
 
 
@@ -21,7 +21,7 @@ export const TaskProvider = ({ children }) => {
         };
         return tasks.map((task) => {
           if (task.id === content.id) {
-            return { ...task, completed: content.value }
+            return { ...task, status: content.value }
           }
           return task
         })
@@ -94,7 +94,7 @@ export const TaskProvider = ({ children }) => {
   }
 
   const handleCompleteTask = (id, value) => {
-    updateTask(id, "completed", value)
+    updateTask(id, "status", value)
       .then(() => {
         dispatchTasks({ type: "COMPLETE_TASK", content: { id, value } })
       })

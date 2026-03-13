@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
       (res) => res,
       async (err) => {
         const originalReq = err.config;
-        if (err.response.status === 401 && !originalReq._retry) {
+        if (err.response?.status === 401 && !originalReq._retry) {
           try {
             await refreshToken()
             if (token) {
