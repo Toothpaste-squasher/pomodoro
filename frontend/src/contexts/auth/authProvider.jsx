@@ -15,7 +15,7 @@ const mainAPI = axios.create({
 })
 
 const authAPI = axios.create({
-  baseURL: 'http://localhost:5002/api',
+  baseURL: 'http://localhost:5001/auth',
   headers: {
     'Content-Type': 'application/json',
   },

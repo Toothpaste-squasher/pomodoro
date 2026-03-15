@@ -52,7 +52,7 @@ export const TaskProvider = ({ children }) => {
     }
   }
 
-  const handleRetrieveTasks = () => {
+  const handleRetrieveTasks = async () => {
     getTasks()
       .then((res) => {
         const { tasks } = res.data
@@ -63,7 +63,7 @@ export const TaskProvider = ({ children }) => {
   const handleAddTask = (newTask) => {
     createTask({ newTask })
       .then((res) => {
-        dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data } })
+        dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data.newTask } })
       })
       .catch(err => console.log(err))
   }

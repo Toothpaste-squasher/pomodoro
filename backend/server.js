@@ -1,16 +1,22 @@
-import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import 'dotenv/config';
+import cookieParser from 'cookie-parser';
 
-// ---Import Routes---
-import tasksRoutes from './routes/tasksRoutes.js';
-import studySeshRoutes from './routes/studySeshRoutes.js';
-import settingsRoutes from './routes/settingsRoutes.js';
-
+// ---AUTH Routes---
+import userRoutes from './auth/routes/userRoutes.js'
+import tokenRoutes from './auth/routes/tokenRoutes.js'
+// ---API Routes---
+import tasksRoutes from './api/routes/tasksRoutes.js';
+import studySeshRoutes from './api/routes/studySeshRoutes.js';
+import settingsRoutes from './api/routes/settingsRoutes.js';
+// ---DB Testing Connection---
 import { testConnection } from './db/db.js';
+// ---Error Handling---
+import { errorHandler } from './api/middleware/errorHandler.js';
+
 
 const app = express();
-
 testConnection()
 
 // ---Middleware---
@@ -19,17 +25,19 @@ app.use(cors({
   origin: "http://localhost:5173",
   credentials: true,
 }));
+app.use(cookieParser())
 
-// ---Use Routes---
+// ---Use AUTH Routes---
+app.use('/auth/users', userRoutes);
+app.use('/auth/token', tokenRoutes)
+
+// ---Use API Routes---
 app.use('/api/tasks', tasksRoutes);
 app.use('/api/sessions', studySeshRoutes);
 app.use('/api/settings', settingsRoutes)
 
 // ---Error handling---
-app.use((err, req, res, next) => {
-  console.log(err)
-  res.status(500).json({ success: false, message: err.message })
-})
+app.use(errorHandler)
 
 // ---Server---
 app.listen(5001, () => {
