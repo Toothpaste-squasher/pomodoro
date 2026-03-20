@@ -8,7 +8,7 @@ import userRoutes from './auth/routes/userRoutes.js'
 import tokenRoutes from './auth/routes/tokenRoutes.js'
 // ---API Routes---
 import tasksRoutes from './api/routes/tasksRoutes.js';
-import studySeshRoutes from './api/routes/studySeshRoutes.js';
+import studySeshRoutes from './api/routes/sessionsRoutes.js';
 import settingsRoutes from './api/routes/settingsRoutes.js';
 // ---DB Testing Connection---
 import { testConnection } from './db/db.js';

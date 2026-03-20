@@ -27,23 +27,23 @@ export const TimerProvider = ({ children }) => {
 
   const createNewSession = useCallback(() => {
     return {
-      taskIdCompleted: doneTask,
-      endTime: Date.now(),
-      duration: countdownDuration - remainingTime,
-      completed: true,
-      subjectId: 1,
-      notes: note
+      session_type: 'productive',
+      end_time: Date.now(),
+      duration_s: countdownDuration - remainingTime,
     }
   }, [countdownDuration, remainingTime, note, doneTask]);
 
-  const finishSession = useCallback(() => {
-    const newSession = createNewSession()
+  const finishSession = useCallback(async () => {
     setIsRunning(false);
     setRemainingTime(Number(defaultDur)); // Use defaultDur to reset
-    saveSession(newSession);
-    setNote('');
-    setDoneTask([]);
-  }, [defaultDur, countdownDuration, remainingTime, createNewSession]);
+    try {
+      await saveSession(createNewSession());
+      setNote('');
+      setDoneTask([]);
+    } catch (err) {
+      console.log("Something wrong when saving session")
+    }
+  }, [defaultDur, createNewSession]);
 
   // --- Timer Interval ---
   useEffect(() => {

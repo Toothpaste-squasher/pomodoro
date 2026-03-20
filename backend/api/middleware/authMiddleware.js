@@ -9,7 +9,7 @@ export function authenticateToken(req, res, next) {
   } // No token
   jwt.verify(token, process.env.ACCESS_TOKEN_S, (err, user) => {
     if (err) {
-      console.log("Invalid token")
+      console.log("Invalid access token, attempting to refresh token...")
       return res.status(403).send('invalid access token') // Invalid token
     }
     req.user = user
