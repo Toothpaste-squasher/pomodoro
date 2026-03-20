@@ -28,7 +28,7 @@ export const TaskProvider = ({ children }) => {
       }
 
       case "ADD_TASK": {
-        if (!content.newTask) return console.log("invalid content for new task creation")
+        if (!content.newTask) return console.log("newTask info not provided")
         return [content.newTask, ...tasks];
       }
 
@@ -63,7 +63,9 @@ export const TaskProvider = ({ children }) => {
   const handleAddTask = (newTask) => {
     createTask({ newTask })
       .then((res) => {
-        dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data.newTask } })
+        if (res.data) {
+          dispatchTasks({ type: "ADD_TASK", content: { newTask: res.data.newTask } })
+        }
       })
       .catch(err => console.log(err))
   }

@@ -1,23 +1,22 @@
-import tasks from '../data/tasks.js';
 import { pool } from '../../db/db.js';
 
 export const getTasks = async (req, res) => {
-  const sql = `SELECT * FROM tasks WHERE user_id = ?`
+  const sql = `SELECT * FROM tasks WHERE user_id = ? ORDER BY id DESC`
   const user_id = req.user.id;
   const [rows] = await pool.query(sql, [user_id])
   return res.status(200).json({ success: true, tasks: rows })
 }
 
 export const createTask = async (req, res) => {
-  const add_sql = `INSERT INTO tasks (user_id, title, due_date, status, task_group) VLAUES (?, ?, ?, ?, ?)`
-  const getNewTask_sql = 'SELECT FROM tasks WHERE id = ?'
+  const add_sql = `INSERT INTO tasks (user_id, title, due_date, status, task_group, priority) VALUES (?, ?, ?, ?, ?, ?)`
+  const getNewTask_sql = 'SELECT * FROM tasks WHERE id = ?'
   const user_id = req.user.id
-  const [title, due_date, status, task_group, priority] = req.body.newTask
-
-  const [result] = await pool.query(add_sql, [user_id, title, due_date, status, task_group, priority])
+  const { title, due_date, status, task_group, priority } = req.body.newTask
+  const formatted_due_date = due_date === '' ? null : due_date
+  const [result] = await pool.query(add_sql, [user_id, title, formatted_due_date, status, task_group, priority])
   const [newTask] = await pool.query(getNewTask_sql, [result.insertId])
 
-  return res.status(200).json({ success: true, newTask })
+  return res.status(200).json({ success: true, newTask: newTask[0] })
   /*
   tasks.push(newTask);
   res.status(200).json(newTask);

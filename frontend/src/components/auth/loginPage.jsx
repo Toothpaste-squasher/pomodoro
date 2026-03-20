@@ -6,7 +6,7 @@ import { authContext } from "../../contexts/auth/authContext"
 
 export const LoginPage = () => {
   const navigate = useNavigate()
-  const [creds, setCreds] = useState({ username: '', password: '' })
+  const [creds, setCreds] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const { setToken } = useContext(authContext)
   const { login } = useUsersService()
@@ -38,8 +38,8 @@ export const LoginPage = () => {
   return (
     <div className="login-page">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username" >Username: </label>
-        <input required id='username' type="text" name="username" value={creds.username} onChange={handleChange} />
+        <label htmlFor="username" >Email: </label>
+        <input required id='email' type="text" name="email" value={creds.username} onChange={handleChange} />
         <label htmlFor="password" >Password: </label>
         <input required id='password' type="password" name="password" value={creds.password} onChange={handleChange} />
         <button type="submit">Login</button>

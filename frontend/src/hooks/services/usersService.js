@@ -6,8 +6,8 @@ const useUsersService = () => {
   const { authAPI } = useContext(authContext)
 
   const login = (user) => {
-    if (user.username === '' || user.password === '') {
-      return Promise.reject(new Error("Username or password is not provided in the request"))
+    if (user.email === '' || user.password === '') {
+      return Promise.reject(new Error("Email or password is not provided in the request"))
     }
     return authAPI.post('/users/login', user)
   }

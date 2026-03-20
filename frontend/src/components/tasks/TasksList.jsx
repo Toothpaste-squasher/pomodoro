@@ -24,7 +24,7 @@ const TasksList = () => {
         onClick={() => { setIsAdding(true) }}
       >+</button>
       {isAdding ? <CreateTask setIsAdding={setIsAdding} /> : ""}
-      {(tasks).map((task, index) => {
+      {tasks.map((task, index) => {
         return (
           <TaskItem task={task} key={index} />
         )
