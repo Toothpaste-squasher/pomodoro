@@ -2,12 +2,13 @@ import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { authContext } from "../auth/authContext.js"
 
-import { SettingsProvider } from "./settings/settingsProvider.jsx"
-import { TimerProvider } from "./timer/timerProvider.jsx"
-import { TaskProvider } from "./task/taskProvider.jsx"
+import SettingsProvider from "./settings/settingsProvider.jsx"
+import TimerProvider from "./timer/timerProvider.jsx"
+import TaskProvider from "./task/taskProvider.jsx"
+import SessionsProvider from "./sessions/sessionsProvider.jsx"
 
 
-export const AppProvider = ({ children }) => {
+const AppProvider = ({ children }) => {
   const navigate = useNavigate()
   const { isAuthorised } = useContext(authContext)
 
@@ -20,11 +21,15 @@ export const AppProvider = ({ children }) => {
   return (
     isAuthorised &&
     <SettingsProvider>
-      <TimerProvider>
-        <TaskProvider>
-          {children}
-        </TaskProvider>
-      </TimerProvider>
+      <SessionsProvider>
+        <TimerProvider>
+          <TaskProvider>
+            {children}
+          </TaskProvider>
+        </TimerProvider>
+      </SessionsProvider>
     </SettingsProvider>
   )
 }
+
+export default AppProvider;

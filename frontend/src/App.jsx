@@ -7,9 +7,10 @@ import { MainLayout } from "./components/menu bar/MainLayout.jsx";
 import { Timer } from "./components/timer/study.jsx"
 import { Tasks } from "./components/tasks/tasks.jsx"
 import { Settings } from './components/settings/settings.jsx'
+import { Stats } from './components/stats/stats.jsx'
 
 // Contexts
-import { AppProvider } from "./contexts/App/AppProvider.jsx";
+import AppProvider from "./contexts/app/AppProvider.jsx";
 
 
 const ComingSoon = () => { return <h1>Coming soon...</h1> }
@@ -31,7 +32,7 @@ export default function App() {
         <Route path="study" element={<Timer />} />
         <Route path="tasks" element={<Tasks />} />
         <Route path="calendar" element={<ComingSoon />} />
-        <Route path="stats" element={<ComingSoon />} />
+        <Route path="stats" element={<Stats />} />
         <Route path="settings" element={<Settings />} />
         <Route path="profile" element={<ComingSoon />} />
         <Route path="about" element={<ComingSoon />} />

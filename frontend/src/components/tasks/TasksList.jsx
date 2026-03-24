@@ -8,7 +8,7 @@ import { CreateTask } from './createTaskItem';
 const TasksList = () => {
   // `taskContext` provides the array directly, so we don't destructure `{ tasks }`
   const tasks = useContext(taskContext);
-  const { handleRetrieveTasks, handleAddTask } = useContext(taskDispatchContext)
+  const { handleRetrieveTasks } = useContext(taskDispatchContext)
   const [loadingTask, setLoadingTask] = useState(true)
   const [isAdding, setIsAdding] = useState(false)
 

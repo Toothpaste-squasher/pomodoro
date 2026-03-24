@@ -3,7 +3,7 @@ import { settingsContext } from "./settingsContext";
 
 import useSettingsService from "../../../hooks/services/settingsService";
 
-export const SettingsProvider = ({ children }) => {
+const SettingsProvider = ({ children }) => {
   const [theme, setTheme] = useState();
   const [defaultDur, setDefaultDur] = useState(0);
   const { getSettings } = useSettingsService();
@@ -32,3 +32,5 @@ export const SettingsProvider = ({ children }) => {
     </settingsContext.Provider>
   )
 }
+
+export default SettingsProvider;

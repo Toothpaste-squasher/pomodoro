@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 // Contexts
-import { AuthProvider } from "./contexts/auth/authProvider";
+import AuthProvider from "./contexts/auth/authProvider";
 
 // Global style
 import './index.scss'

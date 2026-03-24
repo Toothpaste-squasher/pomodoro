@@ -4,7 +4,7 @@ import { taskContext, taskDispatchContext } from "./taskContext.js";
 import { useTasksService } from "../../../hooks/services/tasksService";
 
 
-export const TaskProvider = ({ children }) => {
+const TaskProvider = ({ children }) => {
   const [tasks, dispatchTasks] = useReducer(taskReducer, []);
   const { getTasks, deleteTask, updateTask, createTask } = useTasksService();
 
@@ -128,3 +128,5 @@ export const TaskProvider = ({ children }) => {
     </taskContext.Provider>
   )
 }
+
+export default TaskProvider;

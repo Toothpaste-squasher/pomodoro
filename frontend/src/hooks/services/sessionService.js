@@ -5,13 +5,26 @@ import { authContext } from "../../contexts/auth/authContext";
 const useSessionService = () => {
   const { mainAPI } = useContext(authContext)
 
-  const saveSession = (sessionData) => {
-    return mainAPI.post('/sessions', sessionData)
-      .then(res => console.log('Session saved:', res.data))
-      .catch(err => console.error('Error saving session:', err));
+  const getSessions = async () => {
+    try {
+      const res = await mainAPI.get('/sessions')
+      return res.data.sessions
+    } catch (err) {
+      console.error('Error fetching study sessions:', err)
+    }
+  }
+
+  const saveSession = async (sessionData) => {
+    try {
+      const res = await mainAPI.post('/sessions', { newSesh: sessionData })
+      return res.data.message
+    } catch (err) {
+      console.error('Error saving session:', err)
+    }
   }
 
   return {
+    getSessions,
     saveSession
   }
 }

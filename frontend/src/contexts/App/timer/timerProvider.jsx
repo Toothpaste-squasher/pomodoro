@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect, useContext, useCallback } from "react";
 import { TimerContext } from "./timerContext";
 import { settingsContext } from "../settings/settingsContext";
-import useSessionService from "../../../hooks/services/sessionService";
+import { SessionsDispatchContext } from "../sessions/sessionsContext";
 
-export const TimerProvider = ({ children }) => {
+const TimerProvider = ({ children }) => {
   const { defaultDur } = useContext(settingsContext);
-  const { saveSession } = useSessionService();
+  const { handleAddSession } = useContext(SessionsDispatchContext);
 
   // --- States ---
   const [isRunning, setIsRunning] = useState(false);
@@ -37,7 +37,7 @@ export const TimerProvider = ({ children }) => {
     setIsRunning(false);
     setRemainingTime(Number(defaultDur)); // Use defaultDur to reset
     try {
-      await saveSession(createNewSession());
+      await handleAddSession(createNewSession());
       setNote('');
       setDoneTask([]);
     } catch (err) {
@@ -57,7 +57,7 @@ export const TimerProvider = ({ children }) => {
           clearInterval(timerIntervalRef.current);
           finishSession();
         }
-      }, 200);
+      }, 100);
     } else {
       clearInterval(timerIntervalRef.current);
     };
@@ -85,3 +85,5 @@ export const TimerProvider = ({ children }) => {
     </TimerContext.Provider>
   )
 }
+
+export default TimerProvider;

@@ -23,7 +23,7 @@ const authAPI = axios.create({
 })
 
 // --- Context provider ---
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   // --- States ---
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
       const res = await authAPI.get('/token/refresh');
       setToken(res.data.token);
     } catch (err) {
-      console.log(err); // Send user to /login page
       navigate('/login');
       setIsLoading(false);
       setIsAuthorised(false);
@@ -69,6 +68,7 @@ export const AuthProvider = ({ children }) => {
     const resInterceptor = mainAPI.interceptors.response.use(
       (res) => res,
       async (err) => {
+        console.log(err)
         const originalReq = err.config;
         if (!originalReq._retry) {
           try {
@@ -77,8 +77,7 @@ export const AuthProvider = ({ children }) => {
               originalReq._retry = true
               return mainAPI(originalReq)
             } else {
-              setIsAuthorised(false);
-              navigate('/login');
+              console.log('No token')
             }
           } catch (err) {
             return Promise.reject(err)
@@ -108,3 +107,5 @@ export const AuthProvider = ({ children }) => {
     </authContext.Provider>
   )
 }
+
+export default AuthProvider;
