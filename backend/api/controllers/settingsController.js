@@ -1,25 +1,30 @@
 import { pool } from "../../db/db.js";
+import { settingsAC } from "../data/allowedColumns.js";
 
 export const getSettings = async (req, res) => {
   const sql = `SELECT * FROM settings WHERE user_id = ?`
 
-  const [userSettings] = await pool.query(sql, [req.user.id])
+  const [userSettings] = await pool.execute(sql, [req.user.user_id])
 
   if (!userSettings || userSettings.length === 0) {
     const insertSql = `INSERT INTO settings (user_id) VALUES (?)`;
-    await pool.query(insertSql, [req.user.id]);
+    await pool.execute(insertSql, [req.user.user_id]);
 
-    const [newSettings] = await pool.query(sql, [req.user.id]);
+    const [newSettings] = await pool.execute(sql, [req.user.user_id]);
     return res.status(200).json({ success: true, data: newSettings[0] })
   }
   res.status(200).json({ success: true, data: userSettings[0] })
 }
 
 export const updateSettings = async (req, res) => {
-  const sql = `UPDATE settings SET ?? = ? WHERE user_id = ?`
   const [column] = Object.keys(req.body)
   const value = req.body[column];
 
-  await pool.query(sql, [column, value, req.user.id])
+  if (!settingsAC.includes(column)) {
+    return res.status(400).json({ success: false, message: "Invalid setting field" });
+  }
+
+  const sql = `UPDATE settings SET ${column} = ? WHERE user_id = ?`
+  await pool.execute(sql, [value, req.user.user_id])
   res.status(200).json({ success: true, data: { [column]: value } })
 }

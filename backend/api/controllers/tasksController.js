@@ -1,20 +1,21 @@
 import { pool } from '../../db/db.js';
+import { tasksAC } from '../data/allowedColumns.js';
 
 export const getTasks = async (req, res) => {
   const sql = `SELECT * FROM tasks WHERE user_id = ? ORDER BY id DESC`
-  const user_id = req.user.id;
-  const [rows] = await pool.query(sql, [user_id])
+  const user_id = req.user.user_id;
+  const [rows] = await pool.execute(sql, [user_id])
   return res.status(200).json({ success: true, data: rows })
 }
 
 export const createTask = async (req, res) => {
   const add_sql = `INSERT INTO tasks (user_id, title, due_date, status, task_group, priority) VALUES (?, ?, ?, ?, ?, ?)`
   const getNewTask_sql = 'SELECT * FROM tasks WHERE id = ?'
-  const user_id = req.user.id
+  const user_id = req.user.user_id
   const { title, due_date, status, task_group, priority } = req.body.newTask
   const formatted_due_date = due_date === '' ? null : due_date
-  const [result] = await pool.query(add_sql, [user_id, title, formatted_due_date, status, task_group, priority])
-  const [newTask] = await pool.query(getNewTask_sql, [result.insertId])
+  const [result] = await pool.execute(add_sql, [user_id, title, formatted_due_date, status, task_group, priority])
+  const [newTask] = await pool.execute(getNewTask_sql, [result.insertId])
 
   return res.status(200).json({ success: true, data: newTask[0] })
 }
@@ -22,31 +23,23 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   const sql = `UPDATE tasks SET ?? = ? WHERE user_id = ? AND id = ?;`
   const id = Number(req.params.id);
-  const user_id = req.user.id;
+  const user_id = req.user.user_id;
   const info = req.params.info;
   const value = req.body.value;
 
-  const allowedColumns = [
-    'title',
-    'status',
-    'task-group',
-    'due_date',
-    'priority',
-    'completed_at'
-  ]
-  if (!allowedColumns.includes(info)) {
+  if (!tasksAC.includes(info)) {
     return res.status(400).json({ success: false, message: "Invalid column name" })
   }
-  const [rows] = await pool.query(sql, [info, value, user_id, id])
+  const [rows] = await pool.execute(sql, [info, value, user_id, id])
   return res.status(200).json({ success: true, message: "Successfully updated task info" })
 }
 
 export const deleteTask = async (req, res) => {
   const sql = 'DELETE FROM tasks WHERE id = ? AND user_id = ?'
   const id = Number(req.params.id);
-  const user_id = req.user.id;
+  const user_id = req.user.user_id;
 
-  await pool.query(sql, [id, user_id])
+  await pool.execute(sql, [id, user_id])
 
   return res.status(200).json({ success: true, message: "Task deleted" })
 }
