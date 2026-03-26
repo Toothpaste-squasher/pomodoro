@@ -20,7 +20,7 @@ export const refreshToken = (req, res) => {
       return res.status(404).json({ message: 'User not found' })
     }
 
-    const { password_hash, ...payload } = user_info;
+    const { password_hash, ...payload } = user_info[0];
 
     const newAToken = signAToken(payload)
     res.json({ token: newAToken })

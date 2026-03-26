@@ -4,13 +4,14 @@ import { settingsAC } from "../data/allowedColumns.js";
 export const getSettings = async (req, res) => {
   const sql = `SELECT * FROM settings WHERE user_id = ?`
 
-  const [userSettings] = await pool.execute(sql, [req.user.user_id])
+  console.log(req.user)
+  const [userSettings] = await pool.execute(sql, [req.user.id])
 
   if (!userSettings || userSettings.length === 0) {
     const insertSql = `INSERT INTO settings (user_id) VALUES (?)`;
-    await pool.execute(insertSql, [req.user.user_id]);
+    await pool.execute(insertSql, [req.user.id]);
 
-    const [newSettings] = await pool.execute(sql, [req.user.user_id]);
+    const [newSettings] = await pool.execute(sql, [req.user.id]);
     return res.status(200).json({ success: true, data: newSettings[0] })
   }
   res.status(200).json({ success: true, data: userSettings[0] })
@@ -25,6 +26,6 @@ export const updateSettings = async (req, res) => {
   }
 
   const sql = `UPDATE settings SET ${column} = ? WHERE user_id = ?`
-  await pool.execute(sql, [value, req.user.user_id])
+  await pool.execute(sql, [value, req.user.id])
   res.status(200).json({ success: true, data: { [column]: value } })
 }

@@ -3,7 +3,7 @@ import { tasksAC } from '../data/allowedColumns.js';
 
 export const getTasks = async (req, res) => {
   const sql = `SELECT * FROM tasks WHERE user_id = ? ORDER BY id DESC`
-  const user_id = req.user.user_id;
+  const user_id = req.user.id;
   const [rows] = await pool.execute(sql, [user_id])
   return res.status(200).json({ success: true, data: rows })
 }
@@ -11,7 +11,7 @@ export const getTasks = async (req, res) => {
 export const createTask = async (req, res) => {
   const add_sql = `INSERT INTO tasks (user_id, title, due_date, status, task_group, priority) VALUES (?, ?, ?, ?, ?, ?)`
   const getNewTask_sql = 'SELECT * FROM tasks WHERE id = ?'
-  const user_id = req.user.user_id
+  const user_id = req.user.id
   const { title, due_date, status, task_group, priority } = req.body.newTask
   const formatted_due_date = due_date === '' ? null : due_date
   const [result] = await pool.execute(add_sql, [user_id, title, formatted_due_date, status, task_group, priority])
@@ -23,7 +23,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   const sql = `UPDATE tasks SET ?? = ? WHERE user_id = ? AND id = ?;`
   const id = Number(req.params.id);
-  const user_id = req.user.user_id;
+  const user_id = req.user.id;
   const info = req.params.info;
   const value = req.body.value;
 
@@ -37,7 +37,7 @@ export const updateTask = async (req, res) => {
 export const deleteTask = async (req, res) => {
   const sql = 'DELETE FROM tasks WHERE id = ? AND user_id = ?'
   const id = Number(req.params.id);
-  const user_id = req.user.user_id;
+  const user_id = req.user.id;
 
   await pool.execute(sql, [id, user_id])
 

@@ -22,10 +22,12 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const sql = `SELECT * FROM users WHERE email = ?`
   const { email, password } = req.body;
-  const [user] = await pool.execute(sql, [email])
-  if (user.length <= 0) {
+  const [rows] = await pool.execute(sql, [email])
+  if (rows.length <= 0) {
     return res.status(400).json({ success: false, message: 'invalid email' })
   }
+
+  const user = rows[0];
 
   const isMatch = await bcrypt.compare(password, user.password_hash);
   if (!isMatch) {
