@@ -7,8 +7,8 @@ import { getSettings, updateSettings } from '../controllers/settingsController.j
 
 router.use(authenticateToken);
 
-router.get('/', getSettings)
+router.get('/', getSettings);
 
-router.patch('/:id', updateSettings)
+router.patch('/', updateSettings);
 
 export default router;

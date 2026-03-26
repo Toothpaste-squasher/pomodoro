@@ -3,13 +3,13 @@ const router = express.Router();
 
 import { authenticateToken } from '../middleware/authMiddleware.js';
 import { createTask, getTasks, updateTask, deleteTask } from '../controllers/tasksController.js';
-import { a_wrap } from '../utils/asyncHandler.js'
+
 
 router.use(authenticateToken);
 
-router.post('/', a_wrap(createTask));
-router.get('/', a_wrap(getTasks));
-router.put('/:id/:info', a_wrap(updateTask));
-router.delete('/:id', a_wrap(deleteTask));
+router.post('/', createTask);
+router.get('/', getTasks);
+router.put('/:id/:info', updateTask);
+router.delete('/:id', deleteTask);
 
 export default router;

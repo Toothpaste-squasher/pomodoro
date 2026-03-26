@@ -11,21 +11,12 @@ export const register = async (req, res) => {
   const { username, email, password } = req.body
   const password_hash = await bcrypt.hash(password, 10) // 10 being the salt
 
-  await pool.query(sql, [username, email, password_hash])
+  const [result] = await pool.query(sql, [username, email, password_hash])
+  
+  const settingsSql = `INSERT INTO settings (user_id) VALUES (?)`
+  await pool.query(settingsSql, [result.insertId])
+
   res.status(200).json({ success: true })
-  /*
-  const { username, email, password } = req.body
-  const findUser = users.find(user => user.username === username)
-  const findEmail = users.find(user => user.email === email)
-  if (findUser) {
-    return res.status(401).json({ success: false, message: 'Username already exists' })
-  } else if (findEmail) {
-    return res.status(401).json({ success: false, message: 'Email already used' })
-  } else {
-    users.push({ username, email, password })
-    res.json({ success: true, message: 'User created successfully' })
-  }
-  */
 }
 
 export const login = async (req, res) => {
@@ -48,25 +39,4 @@ export const login = async (req, res) => {
   })
   // Send access token
   res.status(200).json({ success: true, accessToken });
-
-  /*
-  const user = users.find(user => user.username === req.body.username && user.password === req.body.password)
-  if (!user) {
-    return res.status(401).json({ success: false, message: 'Invalid credentials' })
-  }
-
-  // filter out password to not be included in the tokens
-  const { password, ...payload } = user
-
-  const { accessToken, refreshToken, rTokenExpiry } = loginSignTokens(payload, res)
-  // Set refresh token to cookies
-  res.cookie('jwrt', refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'strict',
-    maxAge: ms(rTokenExpiry)
-  })
-  // Send access token
-  res.json({ success: true, accessToken });
-  */
 }

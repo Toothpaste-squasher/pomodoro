@@ -6,13 +6,14 @@ const useSettingsService = () => {
 
   const updateSetting = (id, value) => {
     const newSet = { [id]: value }
-    return mainAPI.patch('/settings/1', newSet)
+    return mainAPI.patch('/settings', newSet)
       .then(res => console.log(res.data))
       .catch(err => console.error(err))
   }
 
-  const getSettings = () => {
-    return mainAPI.get('/settings')
+  const getSettings = async () => {
+    const settings = await mainAPI.get('/settings')
+    return settings.data.data
   }
 
   return {

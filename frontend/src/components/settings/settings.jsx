@@ -1,32 +1,39 @@
 import { React, useState, useContext } from "react"
-import { settingsContext } from "../../contexts/App/settings/settingsContext";
-
-import useSettingsService from "../../hooks/services/settingsService";
+import { SettingsContext, SettingsDispatchContext } from "../../contexts/app/settings/settingsContext";
 
 
 export const Settings = () => {
-  const { theme, setTheme, defaultDur, setDefaultDur } = useContext(settingsContext);
-  const { updateSetting } = useSettingsService();
+  const { settings } = useContext(SettingsContext);
+  const { handleAlterSettings } = useContext(SettingsDispatchContext);
+
+  console.log(settings)
 
   return (
     <div className="settings-page">
       <button
         onClick={(e) => {
-          setTheme(e.target.value)
-          updateSetting('theme', e.target.value)
+          handleAlterSettings('theme', e.target.value)
         }}
-        value={theme === 'light' ? 'dark' : 'light'}
+        value={settings.theme === 'light' ? 'dark' : 'light'}
       >
-        {theme === 'light' ? 'dark' : 'light'}
+        {settings.theme === 'light' ? 'dark' : 'light'}
       </button>
 
-      <label htmlFor="defaultDur">Default Duration</label>
+      <label htmlFor="defaultDur">Focus duration</label>
       <input
         type="number"
-        value={defaultDur}
+        value={settings.focus_dur}
         onChange={e => {
-          setDefaultDur(e.target.value)
-          updateSetting('defaultDur', e.target.value)
+          handleAlterSettings('focus_dur', e.target.value)
+        }}
+      />
+
+      <label htmlFor="break_dur">Break duration</label>
+      <input
+        type="number"
+        value={settings.break_dur}
+        onChange={e => {
+          handleAlterSettings('break_dur', e.target.value)
         }}
       />
     </div>

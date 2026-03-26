@@ -6,21 +6,13 @@ export const createSesh = async (req, res) => {
   const user_id = req.user.id
   await pool.query(sql, [user_id, session_type, end_time, duration_s])
   res.status(200).json({ success: true, message: `Added new session: ${session_type}, ${end_time}, ${duration_s}` })
-  /*
-  const newSesh = req.body;
-  sessions.push(newSesh);
-  res.status(201).json(newSesh);
-  */
 }
 
 export const getStudySesh = async (req, res) => {
   const sql = `SELECT * FROM sessions WHERE user_id = ?`
   const user_id = req.user.id;
   const [row] = await pool.query(sql, [user_id])
-  res.status(200).json({ success: true, sessions: row })
-  /*
-  res.status(200).json(sessions);
-  */
+  res.status(200).json({ success: true, data: row })
 }
 
 

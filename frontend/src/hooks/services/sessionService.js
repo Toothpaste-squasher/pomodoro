@@ -8,7 +8,7 @@ const useSessionService = () => {
   const getSessions = async () => {
     try {
       const res = await mainAPI.get('/sessions')
-      return res.data.sessions
+      return res.data.data
     } catch (err) {
       console.error('Error fetching study sessions:', err)
     }

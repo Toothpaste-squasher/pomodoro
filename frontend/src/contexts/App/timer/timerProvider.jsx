@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect, useContext, useCallback } from "react";
 import { TimerContext } from "./timerContext";
-import { settingsContext } from "../settings/settingsContext";
+import { SettingsContext } from "../settings/settingsContext";
 import { SessionsDispatchContext } from "../sessions/sessionsContext";
 
 const TimerProvider = ({ children }) => {
-  const { defaultDur } = useContext(settingsContext);
+  const { settings } = useContext(SettingsContext);
+  const { focus_dur, break_dur } = settings;
   const { handleAddSession } = useContext(SessionsDispatchContext);
 
   // --- States ---
@@ -12,7 +13,6 @@ const TimerProvider = ({ children }) => {
   const [countdownDuration, setCountdownDuration] = useState(0); // Total goal
   const [remainingTime, setRemainingTime] = useState(countdownDuration); // For countdown
   const [note, setNote] = useState('');
-  const [doneTask, setDoneTask] = useState([]);
 
 
   // --- Time Refs --- 
@@ -21,29 +21,29 @@ const TimerProvider = ({ children }) => {
 
   // --- Effects ---
   useEffect(() => {
-    setCountdownDuration(Number(defaultDur));
-    setRemainingTime(Number(defaultDur))
-  }, [defaultDur])
+    setCountdownDuration(Number(focus_dur));
+    setRemainingTime(Number(focus_dur))
+  }, [focus_dur])
 
   const createNewSession = useCallback(() => {
     return {
       session_type: 'productive',
       end_time: Date.now(),
       duration_s: countdownDuration - remainingTime,
+      notes: note,
     }
-  }, [countdownDuration, remainingTime, note, doneTask]);
+  }, [countdownDuration, remainingTime, note]);
 
   const finishSession = useCallback(async () => {
     setIsRunning(false);
-    setRemainingTime(Number(defaultDur)); // Use defaultDur to reset
+    setRemainingTime(Number(focus_dur)); // Use defaultDur to reset
     try {
       await handleAddSession(createNewSession());
       setNote('');
-      setDoneTask([]);
     } catch (err) {
       console.log("Something wrong when saving session")
     }
-  }, [defaultDur, createNewSession]);
+  }, [focus_dur, createNewSession]);
 
   // --- Timer Interval ---
   useEffect(() => {
@@ -76,8 +76,6 @@ const TimerProvider = ({ children }) => {
         setCountdownDuration,
         note,
         setNote,
-        doneTask,
-        setDoneTask,
         finishSession
       }}
     >
