@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useContext } from 'react';
 
-import './timerDisplay.scss';
-import './StudyTasks.scss';
+import './timer.scss';
 
-import { InputTime } from './timerInput.jsx';
-import { TimerCircle } from './pgcircle.jsx';
-import { TasksList } from '../../components/tasks/tasksList.jsx';
+import { InputTime } from '../../components/timer/timerInput.jsx';
+import { TimerCircle } from '../../components/timer/pgcircle.jsx';
 import { formatTimerTime } from '../../utils/timeUtils.jsx';
 import { Notes } from '../../components/timer/notes';
-import { timerContext, timerDispatchContext } from '../../contexts/app/timer/timerContext.js';
-import { TimerControls } from './controls.jsx';
+import { TasksWindow } from '../../components/timer/tasksWindow.jsx'
+
+import { timerTimeContext, timerCycleContext, timerDispatchContext } from '../../contexts/app/timer/timerContext.js';
+import { TimerControls } from '../../components/timer/controls.jsx';
 
 const Timer = () => {
   // --- timerContext ---
-  const { remainingTime, cycle } = useContext(timerContext);
+  const remainingTime = useContext(timerTimeContext);
+  const cycle = useContext(timerCycleContext);
   const { setRemainingTime, dispatchCycle, finsihSession } = useContext(timerDispatchContext)
 
 
@@ -29,10 +30,7 @@ const Timer = () => {
       <div className='timer-container'>
         {/* Timer Circle */}
         {remainingTime !== cycle.dur && (
-          <TimerCircle
-            remainingTime={remainingTime}
-            countdownDuration={cycle.dur}
-          />
+          <TimerCircle />
         )}
         {/* Timer Display */}
         <div className='timer-display'>
@@ -46,11 +44,7 @@ const Timer = () => {
           <TimerControls />
         </div>
       </div>
-      {/* Small tasks window */}
-      <div className='small-tasks'>
-        <h3>Today's Focus</h3>
-        <TasksList />
-      </div>
+      <TasksWindow />
       {/* Notes */}
       <Notes notes={cycle.note} setNotes={(val) => dispatchCycle({ type: 'SET_NOTE', payload: val })} />
     </div>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext, useCallback, useReducer, useMemo } from "react";
-import { timerContext, timerDispatchContext } from "./timerContext";
+import { timerCycleContext, timerTimeContext, timerDispatchContext } from "./timerContext";
 import { SettingsContext } from "../settings/settingsContext";
 import { SessionsDispatchContext } from "../sessions/sessionsContext";
 
@@ -85,13 +85,6 @@ const TimerProvider = ({ children }) => {
   }, [cycle, finishSession]);
 
 
-  const stateValue = useMemo(
-    () => ({
-      remainingTime,
-      cycle,
-    }), [remainingTime, cycle]
-  )
-
   const dispatchValue = useMemo(
     () => ({
       setRemainingTime,
@@ -101,11 +94,13 @@ const TimerProvider = ({ children }) => {
   )
 
   return (
-    <timerContext.Provider value={stateValue}>
-      <timerDispatchContext.Provider value={dispatchValue}>
-        {children}
-      </timerDispatchContext.Provider >
-    </timerContext.Provider >
+    <timerTimeContext.Provider value={remainingTime}>
+      <timerCycleContext.Provider value={cycle}>
+        <timerDispatchContext.Provider value={dispatchValue}>
+          {children}
+        </timerDispatchContext.Provider >
+      </timerCycleContext.Provider>
+    </timerTimeContext.Provider >
   )
 }
 

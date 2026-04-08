@@ -1,9 +1,9 @@
-import { useContext } from "react"
-import { timerContext, timerDispatchContext } from "../../contexts/app/timer/timerContext"
+import React, { useContext, memo } from "react"
+import { timerCycleContext, timerDispatchContext } from "../../contexts/app/timer/timerContext"
 import { Pause, Play, Square, Check, X } from "lucide-react"
 
-export const TimerControls = () => {
-  const { cycle } = useContext(timerContext)
+export const TimerControls = memo(() => {
+  const cycle = useContext(timerCycleContext)
   const { dispatchCycle, finishSession } = useContext(timerDispatchContext)
 
   const handleCancel = () => {
@@ -40,4 +40,4 @@ export const TimerControls = () => {
       {cycle.isEditing ? <EditingTimer /> : <TimerReady />}
     </div>
   )
-}
+})

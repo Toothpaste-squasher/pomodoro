@@ -1,18 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { SessionsContext, SessionsDispatchContext } from '../../contexts/app/sessions/sessionsContext';
 
 export const SessionHistory = ({ setOpenHistory }) => {
   const { sessions } = useContext(SessionsContext)
   const { handleGetSessions } = useContext(SessionsDispatchContext)
-  const [isLoading, setIsloading] = useState(true)
 
-  useEffect(async () => {
-    try {
-      await handleGetSessions()
-      setIsloading(true)
-    } catch (err) {
-      console.log("Error while fetching sessions: " + err)
-    }
+  useLayoutEffect(() => {
+    handleGetSessions()
   }, [])
 
   return (

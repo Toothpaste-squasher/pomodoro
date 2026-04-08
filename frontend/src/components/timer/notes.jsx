@@ -1,7 +1,8 @@
+import React, { memo } from 'react'
 import './studyNotes.scss'
 
 
-const Notes = ({ notes, setNotes }) => {
+const Notes = memo(({ notes, setNotes }) => {
 
   const handleChange = (newNote) => {
     setNotes(newNote);
@@ -18,6 +19,6 @@ const Notes = ({ notes, setNotes }) => {
       />
     </div>
   )
-}
+})
 
 export { Notes };

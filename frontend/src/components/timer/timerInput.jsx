@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 
 import { timeToHMS, HMSToTime } from '../../utils/timeUtils';
-import { timerContext, timerDispatchContext } from '../../contexts/app/timer/timerContext';
+import { timerCycleContext, timerDispatchContext } from '../../contexts/app/timer/timerContext';
 
 
 const InputTime = ({ }) => {
-  const { cycle } = useContext(timerContext)
+  const cycle = useContext(timerCycleContext)
   const { setRemainingTime, dispatchCycle } = useContext(timerDispatchContext)
   const { h, m, s } = timeToHMS(cycle.dur);
 

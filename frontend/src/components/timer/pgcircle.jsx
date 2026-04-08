@@ -1,3 +1,7 @@
+import { useContext } from "react";
+import { timerTimeContext, timerCycleContext } from "../../contexts/app/timer/timerContext";
+
+
 // --- Constants ---
 const SVG_SIZE = 300;
 const CIRCLE_CENTRE = SVG_SIZE / 2;
@@ -7,8 +11,11 @@ const CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
 const VISIBLE_PERCENT = 0.75; // 270 degrees
 const MAX_STROKE = CIRCUMFERENCE * VISIBLE_PERCENT;
 
-const TimerCircle = ({ remainingTime, countdownDuration }) => {
-  const progress = Math.max(0, MAX_STROKE * (1 - remainingTime / countdownDuration));
+const TimerCircle = () => {
+  const remainingTime = useContext(timerTimeContext)
+  const { dur } = useContext(timerCycleContext)
+
+  const progress = Math.max(0, MAX_STROKE * (1 - remainingTime / dur));
 
   return (
     <svg className="timer-circle" viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}>
