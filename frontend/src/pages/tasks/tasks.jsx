@@ -1,5 +1,5 @@
 import './tasksPage.scss'
-import { TasksList } from './TasksList';
+import { TasksList } from '../../components/tasks/tasksList';
 
 const Tasks = () => {
   return (

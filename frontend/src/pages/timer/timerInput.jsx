@@ -1,20 +1,24 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { timeToHMS, HMSToTime } from '../../utils/timeUtils';
+import { timerContext, timerDispatchContext } from '../../contexts/app/timer/timerContext';
 
 
-const InputTime = ({ cdd, setCdd, setIsEditing }) => {
-  const { h, m, s } = timeToHMS(cdd);
-  console.log(cdd)
+const InputTime = ({ }) => {
+  const { cycle } = useContext(timerContext)
+  const { setRemainingTime, dispatchCycle } = useContext(timerDispatchContext)
+  const { h, m, s } = timeToHMS(cycle.dur);
 
   const [HMS, setHMS] = useState([h, m, s]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    if (e.key !== "Enter") return;
     const [H, M, S] = HMS;
-    const newCdd = HMSToTime(H, M, S);
-    setCdd(newCdd);
-    console.log(newCdd)
-    setIsEditing(false);
+    const newDur = HMSToTime(H, M, S);
+    dispatchCycle({ type: 'SET_DUR', payload: newDur });
+    setRemainingTime(newDur)
+    console.log(newDur)
+    dispatchCycle({ type: 'TOGGLE_EDIT', payload: false });
   }
 
   const handleChange = (v, index) => {
@@ -25,7 +29,6 @@ const InputTime = ({ cdd, setCdd, setIsEditing }) => {
     } else if (index !== 0 && value > 59) {    // M||S > 59
       value = 59
     }
-
     /* update HMS */
     setHMS((prev) => {
       const newHMS = prev.map((object, i) => {
@@ -50,7 +53,7 @@ const InputTime = ({ cdd, setCdd, setIsEditing }) => {
             onChange={e => handleChange(Number(e.target.value), index)}
             className='timer-input'
             onFocus={e => e.target.select()}
-            onKeyDown={(e) => { if (e.key === "Enter") handleSubmit() }}
+            onKeyDown={handleSubmit}
           />
           {index < 2 && <span>:</span>}
         </React.Fragment>

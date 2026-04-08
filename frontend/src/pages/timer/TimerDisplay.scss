@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Libertinus+Mono&family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 // --- Variables ---
-$bg-color: #0f172a; // Dark Slate (Background)
-$text-color: #f1f5f9; // Off-white (Text)
-$accent-color: #a855f7; // Purple (Matches your gradient)
-$hover-color: #6366f1; // Indigo (Matches your gradient)
-$glass-bg: rgba(255, 255, 255, 0.05);
+$bg-color: hwb(207 78% 0%);
+$text-color: #000000;
+$accent-color: #559bf7;
+$hover-color: #9581f8;
+$glass-bg: rgba(33, 147, 229, 0.251);
+$glass-border: rgba(110, 132, 142, 0.08);
 
 @mixin timer-font {
   font-size: 10vmin;

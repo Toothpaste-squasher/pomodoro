@@ -21,7 +21,6 @@ export const createTask = async (req, res) => {
 }
 
 export const updateTask = async (req, res) => {
-  const sql = `UPDATE tasks SET ?? = ? WHERE user_id = ? AND id = ?;`
   const id = Number(req.params.id);
   const user_id = req.user.id;
   const info = req.params.info;
@@ -30,7 +29,8 @@ export const updateTask = async (req, res) => {
   if (!tasksAC.includes(info)) {
     return res.status(400).json({ success: false, message: "Invalid column name" })
   }
-  const [rows] = await pool.execute(sql, [info, value, user_id, id])
+  const sql = `UPDATE tasks SET \`${info}\` = ? WHERE user_id = ? AND id = ?;`
+  await pool.execute(sql, [value, user_id, id])
   return res.status(200).json({ success: true, message: "Successfully updated task info" })
 }
 

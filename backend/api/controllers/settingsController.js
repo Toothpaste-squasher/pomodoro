@@ -3,8 +3,6 @@ import { settingsAC } from "../data/allowedColumns.js";
 
 export const getSettings = async (req, res) => {
   const sql = `SELECT * FROM settings WHERE user_id = ?`
-
-  console.log(req.user)
   const [userSettings] = await pool.execute(sql, [req.user.id])
 
   if (!userSettings || userSettings.length === 0) {

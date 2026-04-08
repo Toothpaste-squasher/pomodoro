@@ -1,18 +1,58 @@
-import { useState, useRef, useEffect, useContext, useCallback } from "react";
-import { TimerContext } from "./timerContext";
+import { useState, useRef, useEffect, useContext, useCallback, useReducer, useMemo } from "react";
+import { timerContext, timerDispatchContext } from "./timerContext";
 import { SettingsContext } from "../settings/settingsContext";
 import { SessionsDispatchContext } from "../sessions/sessionsContext";
 
 const TimerProvider = ({ children }) => {
   const { settings } = useContext(SettingsContext);
-  const { focus_dur, break_dur } = settings;
+  const { focus_dur } = settings;
   const { handleAddSession } = useContext(SessionsDispatchContext);
 
-  // --- States ---
-  const [isRunning, setIsRunning] = useState(false);
-  const [countdownDuration, setCountdownDuration] = useState(0); // Total goal
-  const [remainingTime, setRemainingTime] = useState(countdownDuration); // For countdown
-  const [note, setNote] = useState('');
+  // --- States --- 
+  const initialCycleState = {
+    dur: Number(focus_dur),
+    isRunning: false,
+    isEditing: false,
+    note: '',
+    type: 'productive',
+  }
+  const [cycle, dispatchCycle] = useReducer(cycleReducer, initialCycleState);
+  const [remainingTime, setRemainingTime] = useState(cycle.dur); // For countdown
+  function cycleReducer(state, action) {
+    switch (action.type) {
+      case 'SET_DUR':
+        return { ...state, dur: Number(action.payload) }
+      case 'SET_NOTE':
+        return { ...state, note: action.payload }
+      case 'TOGGLE_EDIT':
+        return { ...state, isEditing: action.payload }
+      case 'TOGGLE_RUN':
+        return { ...state, isRunning: action.payload }
+      case 'RESET':
+        return { ...initialCycleState, dur: state.dur };
+      default:
+        return state;
+    }
+  }
+
+  const finishSession = async () => {
+    const createNewSession = () => {
+      return {
+        session_type: 'productive',
+        end_time: Date.now(),
+        duration_s: cycle.dur - remainingTime,
+        notes: cycle.note,
+      }
+    };
+    dispatchCycle({ type: "TOGGLE_RUN", payload: false });
+    setRemainingTime(Number(cycle.dur)); // Use defaultDur to reset
+    try {
+      await handleAddSession(createNewSession());
+      dispatchCycle({ type: "RESET" });
+    } catch (err) {
+      console.log(err)
+    }
+  };
 
 
   // --- Time Refs --- 
@@ -21,33 +61,13 @@ const TimerProvider = ({ children }) => {
 
   // --- Effects ---
   useEffect(() => {
-    setCountdownDuration(Number(focus_dur));
+    dispatchCycle({ type: "SET_DUR", payload: focus_dur });
     setRemainingTime(Number(focus_dur))
   }, [focus_dur])
 
-  const createNewSession = useCallback(() => {
-    return {
-      session_type: 'productive',
-      end_time: Date.now(),
-      duration_s: countdownDuration - remainingTime,
-      notes: note,
-    }
-  }, [countdownDuration, remainingTime, note]);
-
-  const finishSession = useCallback(async () => {
-    setIsRunning(false);
-    setRemainingTime(Number(focus_dur)); // Use defaultDur to reset
-    try {
-      await handleAddSession(createNewSession());
-      setNote('');
-    } catch (err) {
-      console.log("Something wrong when saving session")
-    }
-  }, [focus_dur, createNewSession]);
-
   // --- Timer Interval ---
   useEffect(() => {
-    if (isRunning) {
+    if (cycle.isRunning) {
       endTimeRef.current = Date.now() + remainingTime;
       timerIntervalRef.current = setInterval(() => {
         const t = endTimeRef.current - Date.now();
@@ -61,26 +81,31 @@ const TimerProvider = ({ children }) => {
     } else {
       clearInterval(timerIntervalRef.current);
     };
-
     return () => clearInterval(timerIntervalRef.current); // Prevents Zombie timer or double intervals, cleanup the interval
-  }, [isRunning, finishSession]);
+  }, [cycle, finishSession]);
+
+
+  const stateValue = useMemo(
+    () => ({
+      remainingTime,
+      cycle,
+    }), [remainingTime, cycle]
+  )
+
+  const dispatchValue = useMemo(
+    () => ({
+      setRemainingTime,
+      finishSession,
+      dispatchCycle
+    }), [setRemainingTime, finishSession, dispatchCycle]
+  )
 
   return (
-    <TimerContext.Provider
-      value={{
-        isRunning,
-        setIsRunning,
-        remainingTime,
-        setRemainingTime,
-        countdownDuration,
-        setCountdownDuration,
-        note,
-        setNote,
-        finishSession
-      }}
-    >
-      {children}
-    </TimerContext.Provider>
+    <timerContext.Provider value={stateValue}>
+      <timerDispatchContext.Provider value={dispatchValue}>
+        {children}
+      </timerDispatchContext.Provider >
+    </timerContext.Provider >
   )
 }
 

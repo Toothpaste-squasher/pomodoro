@@ -1,4 +1,3 @@
-
 export const timeToHMS = (time) => {
   // Set time components
   const h = Math.floor(time / 3600000);

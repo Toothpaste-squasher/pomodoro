@@ -1,3 +1,4 @@
 import { createContext } from "react";
 
-export const TimerContext = createContext(null);
+export const timerContext = createContext(null);
+export const timerDispatchContext = createContext(null);
