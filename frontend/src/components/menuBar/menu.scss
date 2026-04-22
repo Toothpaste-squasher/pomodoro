@@ -1,5 +1,5 @@
 // --- Variables ---
-$bg-color: #030712;
+$bg-color: #d2cb85;
 $text-color: #f8fafc;
 $accent-color: #a855f7;
 $hover-color: #818cf8;
@@ -21,12 +21,13 @@ $glass-border: rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 0;
+  justify-content: center;
   background: rgba(255, 255, 255, 0.01);
   border-right: 1px solid $glass-border;
   backdrop-filter: blur(20px);
   z-index: 100;
   position: absolute;
+  margin: 10% 10%;
 
   .menu-item {
     display: flex;

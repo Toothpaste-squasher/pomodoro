@@ -1,0 +1,8 @@
+// Note: Setting the standard font rules for the whole app.
+@use '../abstracts/variables' as v;
+
+
+%font-title {
+  color: v.$txt-color;
+  font-size: map-get(v.$font-size, 'large');
+}

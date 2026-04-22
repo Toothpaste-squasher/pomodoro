@@ -35,7 +35,7 @@ const TimerProvider = ({ children }) => {
     }
   }
 
-  const finishSession = async () => {
+  const finishSession = useCallback(async () => {
     const createNewSession = () => {
       return {
         session_type: 'productive',
@@ -52,7 +52,7 @@ const TimerProvider = ({ children }) => {
     } catch (err) {
       console.log(err)
     }
-  };
+  }, [cycle]);
 
 
   // --- Time Refs --- 
@@ -84,13 +84,12 @@ const TimerProvider = ({ children }) => {
     return () => clearInterval(timerIntervalRef.current); // Prevents Zombie timer or double intervals, cleanup the interval
   }, [cycle, finishSession]);
 
-
   const dispatchValue = useMemo(
     () => ({
-      setRemainingTime,
       finishSession,
-      dispatchCycle
-    }), [setRemainingTime, finishSession, dispatchCycle]
+      dispatchCycle,
+      setRemainingTime
+    }), [finishSession, dispatchCycle]
   )
 
   return (

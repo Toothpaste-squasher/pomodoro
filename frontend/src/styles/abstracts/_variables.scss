@@ -1,0 +1,18 @@
+// 1. Font sizes
+$font-size: (
+  "small": 12px,
+  "normal": 18px,
+  "large": 24px
+);
+
+// 2. Colors
+$bg-color: #F0F7FA;
+$txt-color: #2C3E50;
+$color-1: #FFFFFF;
+$accent-color: #3498DB;
+$glass-bg: rgba(33, 147, 229, 0.251);
+$glass-border: rgba(110, 132, 142, 0.08);
+
+// 3. Device breakpoint
+$bp-tablet: '768px';
+$bp-desktop: '1024px';

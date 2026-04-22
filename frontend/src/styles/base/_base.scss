@@ -1,28 +1,11 @@
-// --- Variables ---
-$bg-color: hwb(207 78% 0%);
-$text-color: #201d1d;
-$accent-color: #559bf7;
-$hover-color: #9581f8;
-$glass-bg: rgba(33, 147, 229, 0.251);
-$glass-border: rgba(110, 132, 142, 0.08);
+// Note: Default styles for raw elements like body, html, a, img, ...
+@use '../abstracts/variables';
 
-// --- Global Presets ---
+
+html,
 body {
-  margin: 0;
-  padding: 0;
   overflow: hidden;
   background-color: $bg-color;
-  color: $text-color;
-  font-family: 'Rubik', sans-serif;
-  user-select: none;
-}
-
-// Main Content
-.main-content {
-  flex: 1;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
 }
 
 // Global Checkboxes Custom

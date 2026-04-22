@@ -1,0 +1,24 @@
+// Note: Reuseable style blocks
+@use './variables' as v;
+
+
+@mixin mq ($device) {
+  @if $device =='desktop' {
+    @media (min-width: v.$bp-desktop) {
+      @content;
+    }
+  }
+
+  @if $device =='tablet' {
+    @media (min-width: v.$bp-tablet) {
+      @content;
+    }
+  }
+}
+
+@mixin flex-center ($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
