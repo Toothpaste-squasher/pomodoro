@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useContext } from 'react';
 
-import './timer.scss';
+
 
 import { InputTime } from '../../components/timer/timerInput.jsx';
 import { TimerCircle } from '../../components/timer/pgcircle.jsx';

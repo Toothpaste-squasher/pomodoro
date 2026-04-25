@@ -9,7 +9,7 @@ import App from "./App";
 import AuthProvider from "./contexts/auth/authProvider";
 
 // Global style
-import './index.scss'
+import './styles/main.scss'
 
 
 const container = document.getElementById("root");

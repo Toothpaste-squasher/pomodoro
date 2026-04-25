@@ -1,4 +1,4 @@
-import './tasksPage.scss'
+
 import { TasksList } from '../../components/tasks/tasksList';
 
 const Tasks = () => {

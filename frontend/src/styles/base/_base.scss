@@ -1,11 +1,13 @@
 // Note: Default styles for raw elements like body, html, a, img, ...
-@use '../abstracts/variables';
+@use '../abstracts/variables' as v;
+@use './typography';
 
 
 html,
 body {
+  @extend %font-base;
   overflow: hidden;
-  background-color: $bg-color;
+  background-color: v.$bg-color;
 }
 
 // Global Checkboxes Custom
@@ -26,9 +28,9 @@ input[type="checkbox"] {
   }
 
   &:checked {
-    background: $accent-color;
-    border-color: $accent-color;
-    box-shadow: 0 0 15px rgba($accent-color, 0.4);
+    background: v.$accent-color;
+    border-color: v.$accent-color;
+    box-shadow: 0 0 15px rgba(v.$accent-color, 0.4);
 
     &::after {
       content: '✓';

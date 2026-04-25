@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
 // --- Import Pages ---
-import { LoginPage } from "./pages/auth/loginPage.jsx"
-import { SignUpPage } from "./pages/auth/createAccount.jsx"
+import { LoginPage } from "./pages/auth/logIn.jsx"
+import { SignUpPage } from "./pages/auth/signUp.jsx"
 import { MainLayout } from "./components/menuBar/mainLayout.jsx";
 import { Timer } from "./pages/timer/timer.jsx"
 import { Tasks } from "./pages/tasks/tasks.jsx"

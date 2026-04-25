@@ -39,7 +39,7 @@ export const LoginPage = () => {
     <div className="login-page">
       <form onSubmit={handleSubmit}>
         <label htmlFor="username" >Email: </label>
-        <input required id='email' type="text" name="email" value={creds.username} onChange={handleChange} />
+        <input required id='email' type="text" name="email" value={creds.email} onChange={handleChange} />
         <label htmlFor="password" >Password: </label>
         <input required id='password' type="password" name="password" value={creds.password} onChange={handleChange} />
         <button type="submit">Login</button>

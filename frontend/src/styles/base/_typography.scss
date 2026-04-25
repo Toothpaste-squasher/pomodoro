@@ -1,8 +1,16 @@
 // Note: Setting the standard font rules for the whole app.
+@use 'sass:map';
 @use '../abstracts/variables' as v;
 
+%font-base {
+  font-family: map.get(v.$font-fam, 'default');
+}
 
 %font-title {
   color: v.$txt-color;
-  font-size: map-get(v.$font-size, 'large');
+  font-size: map.get(v.$font-size, 'large');
+}
+
+%font-timer {
+  font-family: map.get(v.$font-fam, 'timer');
 }

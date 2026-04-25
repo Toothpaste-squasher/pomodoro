@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import './studyNotes.scss'
+
 
 
 const Notes = memo(({ notes, setNotes }) => {

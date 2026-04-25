@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { House, Info, Settings, NotebookPen, ChartColumn, User, Calendar, ListTodo } from 'lucide-react';
-import './menu.scss';
+
 
 const MenuBar = () => {
   const MENU_ITEMS = [

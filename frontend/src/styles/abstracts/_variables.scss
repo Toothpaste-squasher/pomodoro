@@ -1,9 +1,17 @@
-// 1. Font sizes
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Libertinus+Mono&family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+// 1. Font styles
 $font-size: (
   "small": 12px,
   "normal": 18px,
   "large": 24px
 );
+$font-fam: (
+  "default": (system-ui, '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', sans-serif),
+  "timer": ('Courier Prime', monospace)
+);
+
 
 // 2. Colors
 $bg-color: #F0F7FA;

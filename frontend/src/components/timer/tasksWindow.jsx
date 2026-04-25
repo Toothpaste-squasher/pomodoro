@@ -1,4 +1,4 @@
-import './studyTasks.scss'
+
 
 import { TasksList } from '../../components/tasks/tasksList';
 
