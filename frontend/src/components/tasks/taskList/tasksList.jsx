@@ -1,8 +1,8 @@
 import { Loader } from 'lucide-react';
 import React, { useEffect, useContext, useState, memo } from 'react';
-import { taskContext, taskDispatchContext } from '../../contexts/app/task/taskContext';
-import { TaskItem } from './taskItem';
-import { CreateTask } from './createTaskItem';
+import { taskContext, taskDispatchContext } from '../../../contexts/app/task/taskContext';
+import { TaskItem } from '../taskItem/taskItem';
+import { CreateTask } from '../taskForm/taskForm';
 
 
 const TasksList = memo(() => {

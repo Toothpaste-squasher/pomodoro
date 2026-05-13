@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { EditingTaskContent } from "./taskItem";
-import { taskDispatchContext } from "../../contexts/app/task/taskContext";
+import { EditingTaskContent } from "../taskItem/taskItem";
+import { taskDispatchContext } from "../../../contexts/app/task/taskContext";
 
 export const CreateTask = ({ setIsAdding }) => {
   const { handleAddTask } = useContext(taskDispatchContext)

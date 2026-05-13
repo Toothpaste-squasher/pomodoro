@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { Trash2 } from "lucide-react"
-import { taskDispatchContext } from "../../contexts/app/task/taskContext"
+import { taskDispatchContext } from "../../../contexts/app/task/taskContext"
 
 
 const TaskContent = ({ task, setIsEditing }) => {

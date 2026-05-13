@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { InputTime } from '../../components/timer/timerInput.jsx';
 import { TimerCircle } from '../../components/timer/pgcircle.jsx';
 import { formatTimerTime } from '../../utils/timeUtils.jsx';
-import { Notes } from '../../components/timer/notes';
+import { Notes } from '../../components/timer/notes.jsx';
 import { TasksWindow } from '../../components/timer/tasksWindow.jsx'
 
 import { timerTimeContext, timerCycleContext, timerDispatchContext } from '../../contexts/app/timer/timerContext.js';

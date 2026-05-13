@@ -1,5 +1,5 @@
 
-import { TasksList } from '../../components/tasks/tasksList';
+import { TasksList } from '../../components/tasks/taskList/tasksList';
 
 const Tasks = () => {
   return (
