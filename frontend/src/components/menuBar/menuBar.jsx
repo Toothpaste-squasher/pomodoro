@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { House, Info, Settings, NotebookPen, ChartColumn, User, Calendar, ListTodo } from 'lucide-react';
+import s from './menuBar.module.scss';
 
 
 const MenuBar = () => {
@@ -15,13 +16,14 @@ const MenuBar = () => {
   ];
 
   return (
-    <div className='menu-bar'>
+    <div className={s.menu}>
       {MENU_ITEMS.map((item) => {
         return (
           <NavLink
             key={item.id}
             to={`/${item.id}`}
-            className={(isActive) => isActive ? 'menu-item active' : 'menu-item'}
+            className={({ isActive }) => isActive ? `${s.menuItem} ${s.active}` : s.menuItem}
+            title={item.label}
           >
             {item.icon}
           </NavLink>

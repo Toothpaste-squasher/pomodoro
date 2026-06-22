@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use '../../styles/abstracts/_mixins.scss' as m;
+@use '../../styles/abstracts/variables.scss' as v;
+
+.menu {
+  @include m.flex-center(column);
+  background-color: rgba(0, 0, 0, 0.15);
+  position: absolute;
+  padding: map.get(v.$spacing, 's');
+  margin: map.get(v.$spacing, 'l');
+  transform: translateY(-50%);
+  top: 50%;
+  border-radius: 10px;
+
+  .menuItem {
+    @include m.flex-center();
+    margin: 0;
+    color: v.$txt-color;
+    height: map.get(v.$font-size, 'xxl');
+    aspect-ratio: 1;
+    position: relative;
+
+    svg {
+      height: 70%;
+      width: 70%;
+    }
+
+    &:hover:not(.active) {
+      color: v.$accent-dark;
+    }
+
+    &.active {
+      color: v.$accent-dark;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%); // Centers it vertically
+        height: 50%; // Makes the line shorter than the container
+        width: 4px; // Thickness of the line
+        background-color: v.$accent-dark;
+        border-radius: 4px; // Gives the line rounded edges
+      }
+    }
+  }
+}

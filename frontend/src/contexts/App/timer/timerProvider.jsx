@@ -93,8 +93,8 @@ const TimerProvider = ({ children }) => {
   )
 
   return (
-    <timerTimeContext.Provider value={remainingTime}>
-      <timerCycleContext.Provider value={cycle}>
+    <timerTimeContext.Provider value={{ remainingTime }}>
+      <timerCycleContext.Provider value={{ cycle }}>
         <timerDispatchContext.Provider value={dispatchValue}>
           {children}
         </timerDispatchContext.Provider >

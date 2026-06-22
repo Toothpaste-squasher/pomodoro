@@ -4,7 +4,7 @@ import { timeToHMS, HMSToTime } from '../../utils/timeUtils';
 import { timerCycleContext, timerDispatchContext } from '../../contexts/app/timer/timerContext';
 
 
-const InputTime = ({ }) => {
+const TimeInput = ({ }) => {
   const cycle = useContext(timerCycleContext)
   const { setRemainingTime, dispatchCycle } = useContext(timerDispatchContext)
   const { h, m, s } = timeToHMS(cycle.dur);
@@ -62,4 +62,4 @@ const InputTime = ({ }) => {
   )
 };
 
-export { InputTime };
+export { TimeInput };

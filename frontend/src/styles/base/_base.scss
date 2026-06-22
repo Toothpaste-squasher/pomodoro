@@ -10,6 +10,11 @@ body {
   background-color: v.$bg-color;
 }
 
+svg {
+  height: 100%;
+  width: 100%;
+}
+
 // Global Checkboxes Custom
 input[type="checkbox"] {
   appearance: none;

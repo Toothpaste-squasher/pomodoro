@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { timerTimeContext, timerCycleContext } from "../../contexts/app/timer/timerContext";
-
+import s from './timerComp.module.scss'
 
 // --- Constants ---
-const SVG_SIZE = 300;
+const SVG_SIZE = 400;
 const CIRCLE_CENTRE = SVG_SIZE / 2;
 const STROKE_WIDTH = 12; // Slightly thicker for neon look
 const CIRCLE_RADIUS = SVG_SIZE / 2 - STROKE_WIDTH / 2 - 10;
@@ -12,27 +12,14 @@ const VISIBLE_PERCENT = 0.75; // 270 degrees
 const MAX_STROKE = CIRCUMFERENCE * VISIBLE_PERCENT;
 
 const TimerCircle = () => {
-  const remainingTime = useContext(timerTimeContext)
-  const { dur } = useContext(timerCycleContext)
-
+  const { remainingTime } = useContext(timerTimeContext)
+  const { cycle } = useContext(timerCycleContext)
+  const { dur } = cycle
   const progress = Math.max(0, MAX_STROKE * (1 - remainingTime / dur));
 
   return (
-    <svg className="timer-circle" viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}>
+    <svg className={s.timerCircle} viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}>
       <defs>
-        {/* Main vibrant gradient */}
-        <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#818cf8" />
-          <stop offset="50%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#ec4899" />
-        </linearGradient>
-
-        {/* Outer neon glow filter */}
-        <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-
         {/* Pulse animation for the progress head */}
         <filter id="headGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="8" result="blur" />
@@ -43,7 +30,7 @@ const TimerCircle = () => {
 
       {/* Background Track (Glassy) */}
       <circle
-        className="background-track"
+        className={s.backgroundTrack}
         stroke="rgba(255, 255, 255, 0.05)"
         strokeWidth={STROKE_WIDTH}
         strokeLinecap="round"
@@ -60,15 +47,14 @@ const TimerCircle = () => {
 
       {/* Progress Arc (Neon) */}
       <circle
-        className="progress-arc"
-        stroke="url(#neonGradient)"
+        className={s.progressArc}
+        stroke="#b76f6fff"
         strokeWidth={STROKE_WIDTH}
         strokeLinecap="round"
         fill="transparent"
         r={CIRCLE_RADIUS}
         cx={CIRCLE_CENTRE}
         cy={CIRCLE_CENTRE}
-        filter="url(#neonGlow)"
         style={{
           transition: 'stroke-dasharray 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
           transform: 'rotate(135deg)',

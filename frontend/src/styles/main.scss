@@ -7,13 +7,3 @@
 @use './base/reset';
 @use './base/base';
 @use './base/typography';
-
-// 3. Pages
-@use '../pages/auth/authPage';
-@use '../pages/timer/timerPage';
-@use '../pages/tasks/tasksPage';
-
-// 4. Components
-@use '../components/menuBar/menu';
-@use '../components/timer/studyNotes';
-@use '../components/timer/studyTasks';

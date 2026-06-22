@@ -1,0 +1,19 @@
+@use '../../styles/abstracts/variables' as v;
+@use '../../styles/abstracts/mixins' as m;
+
+.timerCircle {
+  height: 70vh;
+  width: auto;
+
+  @include m.mq('phone') {
+    height: 35vh;
+  }
+
+  .backgroundTrack {
+    stroke: v.$surface-color;
+  }
+
+  .progressArc {
+    stroke: v.$accent-light;
+  }
+}

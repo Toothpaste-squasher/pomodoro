@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 // --- Import Pages ---
 import { LoginPage } from "./pages/auth/logIn.jsx"
 import { SignUpPage } from "./pages/auth/signUp.jsx"
-import { MainLayout } from "./components/menuBar/mainLayout.jsx";
+import { MainLayout } from "./components/_ui/mainLayout.jsx";
 import { Timer } from "./pages/timer/timerPage.jsx"
 import { Tasks } from "./pages/tasks/tasksPage.jsx"
 import { Settings } from './pages/settings/settings.jsx'

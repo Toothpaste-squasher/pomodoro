@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Libertinus+Mono&family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+// change the colors to dynamic color changing and use a single base color to map out the entire colors.
 
-
-// 1. Font styles
+// --- 1. Font styles ---
 $font-size: (
-  "small": 12px,
-  "normal": 18px,
-  "large": 24px
+  "s": 0.75rem,
+  "m": 1rem,
+  "l": 1.5rem,
+  "xl": 2rem,
+  'xxl': 3rem
 );
 $font-fam: (
   "default": (system-ui, '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', sans-serif),
@@ -13,14 +15,40 @@ $font-fam: (
 );
 
 
-// 2. Colors
-$bg-color: #F0F7FA;
-$txt-color: #2C3E50;
-$color-1: #FFFFFF;
-$accent-color: #3498DB;
+// --- 2. Colors ---
+// Brand / Accent Colors
+$accent-color: #40a0ff; // Main brand color
+$accent-light: #85C1E9; // Lighter variant for hover states, active links, etc.
+$accent-dark: #006dcc; // Darker variant for active/pressed states
+
+// Base & Surface Colors
+$bg-color: #b5e2f1; // Main app background
+$surface-color: #8dc3df; // Cards, modals, panels (formerly $color-1)
+
+// Typography
+$txt-color: #000000; // Main text (formerly $txt-color)
+$txt-2: #555555; // Muted text for subtitles, placeholders
+$txt-inverted: #FFFFFF; // Text on top of dark/accent backgrounds
+
+// State / Feedback Colors
+$success-color: #2ECC71;
+$warning-color: #F1C40F;
+$error-color: #E74C3C;
+
+// Specialized Colors (e.g., Glassmorphism)
 $glass-bg: rgba(33, 147, 229, 0.251);
 $glass-border: rgba(110, 132, 142, 0.08);
 
-// 3. Device breakpoint
+
+// --- 3. Device breakpoint ---
 $bp-tablet: '768px';
 $bp-desktop: '1024px';
+
+// --- 4. Spacing ---
+$spacing: (
+  'xs': 0.25rem,
+  's': 0.5rem,
+  'm': 1rem,
+  'l': 1.5rem,
+  'xl': 2rem
+);

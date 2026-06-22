@@ -1,6 +1,7 @@
 import React, { useContext, memo } from "react"
 import { timerCycleContext, timerDispatchContext } from "../../contexts/app/timer/timerContext"
 import { Pause, Play, Square, Check, X } from "lucide-react"
+import s from './timerComp.module.scss'
 
 export const TimerControls = memo(() => {
   const cycle = useContext(timerCycleContext)
@@ -16,27 +17,28 @@ export const TimerControls = memo(() => {
 
   const TimerReady = () => {
     return (
-      <>
-        {cycle.isRunning ?
-          <Pause className='timer-button' onClick={toggleTimer} size={40} /> :
-          <Play className='timer-button' onClick={toggleTimer} size={40} />
+      <div className={s.timerControl}>
+        {
+          cycle.isRunning ?
+            <Pause className={s.timerButton} onClick={toggleTimer} size={40} /> :
+            <Play className={s.timerButton} onClick={toggleTimer} size={40} />
         }
-        <Square className='timer-button' onClick={() => finishSession()} size={40} />
-      </>
+        < Square className={s.timerButton} onClick={() => finishSession()} size={40} />
+      </div>
     )
   }
 
   const EditingTimer = () => {
     return (
       <>
-        <Check className="timer-button" size={40} />
-        <X className="timer-button" size={40} onClick={handleCancel} />
+        <Check className={s.timerButton} size={40} />
+        <X className={s.timerButton} size={40} onClick={handleCancel} />
       </>
     )
   }
 
   return (
-    <div className='timer-control'>
+    <div className={s.timerControl}>
       {cycle.isEditing ? <EditingTimer /> : <TimerReady />}
     </div>
   )

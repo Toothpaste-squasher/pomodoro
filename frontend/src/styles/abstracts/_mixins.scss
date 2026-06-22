@@ -1,7 +1,7 @@
 // Note: Reuseable style blocks
 @use './variables' as v;
 
-
+// Media Query:
 @mixin mq ($device) {
   @if $device =='desktop' {
     @media (min-width: v.$bp-desktop) {
@@ -10,15 +10,21 @@
   }
 
   @if $device =='tablet' {
-    @media (min-width: v.$bp-tablet) {
+    @media (min-width: v.$bp-tablet) and (max-width: v.$bp-desktop) {
+      @content;
+    }
+  }
+
+  @if $device =='phone' {
+    @media (max-width: v.$bp-tablet) {
       @content;
     }
   }
 }
 
-@mixin flex-center ($direction) {
+@mixin flex-center ($direction: row) {
   display: flex;
-  flex-direction: $direction;
   justify-content: center;
   align-items: center;
+  flex-direction: $direction;
 }

@@ -8,7 +8,7 @@
 
 %font-title {
   color: v.$txt-color;
-  font-size: map.get(v.$font-size, 'large');
+  font-size: map.get(v.$font-size, 'l');
 }
 
 %font-timer {
