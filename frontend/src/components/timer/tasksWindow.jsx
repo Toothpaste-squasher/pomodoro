@@ -1,11 +1,10 @@
 import { TasksList } from '../tasks/taskList/tasksList';
-import s from './timerComp.module.scss';
+import { FloatWindow } from '../_common/floatWindow';
 
 export const TasksWindow = () => {
   return (
-    < div className={s.smallTasks} >
-      <h3>Today's Focus</h3>
+    <FloatWindow title="Tasks">
       <TasksList />
-    </div >
+    </FloatWindow>
   )
 }

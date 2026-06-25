@@ -1,8 +1,9 @@
 import { formatTimerTime } from "../../utils/timeUtils";
-import { TimeInput } from "../_common/timeInput";
+import { TimeInput } from "./timeInput";
 import { useContext } from "react";
 import { timerTimeContext, timerCycleContext, timerDispatchContext } from "../../contexts/app/timer/timerContext";
 import s from './timerComp.module.scss';
+import { Modal } from "../_common/modal";
 
 const TimerTime = () => {
   const { remainingTime } = useContext(timerTimeContext);
@@ -14,13 +15,20 @@ const TimerTime = () => {
       dispatchCycle({ type: "TOGGLE_EDIT", payload: true })
     }
   }
+
+  const handleCloseModal = () => {
+    dispatchCycle({ type: "TOGGLE_EDIT", payload: false })
+  }
+
   return (
     <div className={s.timerTime} onClick={handleTimerClick}>
-      {!cycle.isEditing ?
-        formatTimerTime(remainingTime)
-        :
+      {formatTimerTime(remainingTime)}
+      <Modal
+        open={cycle.isEditing}
+        closeFunc={handleCloseModal}
+      >
         <TimeInput />
-      }
+      </Modal>
     </div>
   )
 }

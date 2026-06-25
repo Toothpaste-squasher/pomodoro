@@ -3,5 +3,6 @@
 
 .timerContainer {
   @include m.flex-center("column");
+  position: relative;
 
 }

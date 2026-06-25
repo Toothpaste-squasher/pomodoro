@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-// hr = windowref
+// hr = handleRef
 // tr = targetRef
 
 export const useDrag = (hr, tr = hr) => {
@@ -12,7 +12,7 @@ export const useDrag = (hr, tr = hr) => {
     const node = hr.current;
     const parent = tr.current;
     if (!node || !parent) {
-      console.error("useDrag.js: ref object passed is null");
+      console.error("useDrag.js: invalid ref object passed");
       return;
     }
     const handleMouseDown = (e) => {
@@ -26,7 +26,6 @@ export const useDrag = (hr, tr = hr) => {
     }
 
     node.addEventListener('mousedown', handleMouseDown)
-
     return () => {
       node.removeEventListener('mousedown', handleMouseDown)
     }
@@ -55,6 +54,12 @@ export const useDrag = (hr, tr = hr) => {
       window.removeEventListener('mouseup', handleMouseUp)
     }
   }, [grabbing])
+
+  useEffect(() => {
+    if (!position) return;
+    tr.current.style.left = position.x + 'px';
+    tr.current.style.top = position.y + 'px';
+  }, [position])
 
   return { position }
 }

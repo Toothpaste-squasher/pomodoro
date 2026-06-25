@@ -7,10 +7,18 @@ export const timeToHMS = (time) => {
 }
 
 export const formatTimerTime = (time) => {
+  const { h } = timeToHMS(time);
   const { EH, EM, ES } = timeToHMSDisplay(time);
+  if (h > 0) {
+    return (
+      <div>
+        {EH}:{EM}:{ES}
+      </div>
+    )
+  }
   return (
     <div>
-      {EH}:{EM}:{ES}
+      {EM}:{ES}
     </div>
   )
 }

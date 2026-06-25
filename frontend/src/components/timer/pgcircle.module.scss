@@ -1,0 +1,52 @@
+@use '../../styles/abstracts/variables' as v;
+@use '../../styles/abstracts/mixins' as m;
+
+// SVG geometry and layout constants (resolved at compile-time)
+$svg-size: 400;
+$stroke-width: 15;
+$circle-centre: $svg-size * 0.5;
+$circle-radius: (
+  $svg-size * 0.5) - ($stroke-width * 1
+);
+$pi: 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819640145132923078460101;
+$circumference: 2 * $pi * $circle-radius;
+$visible-percent: 0.75;
+$max-stroke: $circumference * $visible-percent;
+
+.timerCircle {
+  height: 50vh;
+  width: auto;
+  pointer-events: none; // Prevent SVG from intercepting mouse clicks meant for inner absolute buttons
+
+  @include m.mq('phone') {
+    height: 35vh;
+  }
+
+  .backgroundTrack {
+    cx: #{$circle-centre};
+    cy: #{$circle-centre};
+    r: #{$circle-radius};
+    stroke-width: #{$stroke-width};
+    stroke-linecap: round;
+    fill: transparent;
+    stroke: rgba(0, 0, 0, 0.25);
+    stroke-opacity: 0.25;
+    transform: rotate(135deg);
+    transform-origin: 50% 50%;
+    stroke-dasharray: #{$max-stroke} #{$circumference};
+  }
+
+  .progressArc {
+    cx: #{$circle-centre};
+    cy: #{$circle-centre};
+    r: #{$circle-radius};
+    stroke-width: #{$stroke-width};
+    stroke-linecap: round;
+    fill: transparent;
+    stroke: v.$accent-light;
+    transform: rotate(135deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dasharray 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    stroke-dasharray: calc(#{$max-stroke} * var(--progress-percent)) #{$circumference};
+  }
+}

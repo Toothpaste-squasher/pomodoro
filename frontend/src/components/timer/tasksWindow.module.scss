@@ -1,0 +1,36 @@
+@use '../../styles/abstracts/variables' as v;
+@use 'sass:map';
+
+.tasksWindow {
+  position: absolute;
+  top: 20%;
+  left: 17%;
+  width: 18vw;
+  height: 50vh;
+  border-radius: 1vh;
+  background-color: v.$glass-bg;
+  box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.5px) saturate(120%);
+  -webkit-backdrop-filter: blur(7.5px) saturate(120%);
+  z-index: 10;
+
+  .header {
+    display: flex;
+    padding: map.get(v.$spacing, 's') map.get(v.$spacing, 'm');
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .handle {
+    width: 20px;
+    height: 20px;
+    cursor: grab;
+  }
+
+  .minimize {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    justify-self: right;
+  }
+}

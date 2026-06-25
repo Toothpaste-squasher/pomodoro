@@ -1,19 +1,53 @@
 @use '../../styles/abstracts/variables' as v;
 @use '../../styles/abstracts/mixins' as m;
+@use 'sass:map';
 
-.timerCircle {
-  height: 70vh;
-  width: auto;
+
+.timerTime {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: map.get(v.$font-fam, 'timer');
+  user-select: none; // Prevent text from blocking cursor interactions
+
+  // Proportional font sizing relative to the circle height (15% of circle's 50vh / 35vh height)
+  font-size: 7.5vh;
+  user-select: none;
+  font-weight: 300;
 
   @include m.mq('phone') {
-    height: 35vh;
+    font-size: 5.25vh;
+  }
+}
+
+.timerControl {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  width: 10vh;
+  gap: 1.5vh;
+
+  @include m.mq('phone') {
+    width: 10.5vh;
+    gap: 1vh;
   }
 
-  .backgroundTrack {
-    stroke: v.$surface-color;
-  }
+  .timerButton {
+    cursor: pointer;
+    width: 5vh;
+    height: 5vh;
 
-  .progressArc {
-    stroke: v.$accent-light;
+    @include m.mq('phone') {
+      width: 3.5vh;
+      height: 3.5vh;
+    }
+
+    &:hover {
+      filter: brightness(2);
+    }
   }
 }

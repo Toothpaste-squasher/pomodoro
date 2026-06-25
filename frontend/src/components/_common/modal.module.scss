@@ -1,0 +1,22 @@
+@use '../../styles/abstracts/mixins.scss' as m;
+
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  @include m.flex-center();
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+
+  .modalContent {
+    background-color: rgb(80, 80, 80);
+    height: 35vh;
+    width: 30vw;
+    border-radius: 12px;
+    padding: 20px;
+  }
+}
